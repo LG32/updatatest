@@ -1,0 +1,7 @@
+<!--pages/firstpage/firstpage.wxml-->
+<view class='search flex-wrp'>
+  <view class='test flex-item'>
+    <image src="../../images/search.png"></image>
+    <input placeholder="搜索话题, 问题或人" placeholder-class="search-placeholder" />
+  </view>
+</view>
