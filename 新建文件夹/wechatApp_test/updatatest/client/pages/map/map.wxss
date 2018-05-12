@@ -1,0 +1,60 @@
+/* pages/map/map.wxss */
+page {
+    background: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.message{
+     font-size: 32rpx;
+    color: #007AFF;
+}
+
+.page-section-gap{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.page-body-button {
+  margin-bottom: 30rpx;
+}
+
+.container{
+  height: 1800rpx;
+}
+.container .search{
+  width: 750rpx;
+  height: 65rpx;
+  padding: 12.5rpx  12.5rpx 15rpx;
+  background: #DE00C8;
+}
+.container .search-left{
+  flex: 8;
+  background: #FF4BED;
+  text-align: left;
+} 
+.container .search-left input{
+  display: inline-block;
+  height: 65rpx;
+  font-size: 26rpx;
+}
+.search-placeholder{
+  color: #8CCEFD;
+  line-height: 20rpx;
+}
+.container .search .search-left image{
+  display: inline-block;
+  width: 35rpx;
+  height: 35rpx;
+  padding: 15rpx 15rpx 15rpx 20rpx;
+}
+.container .search-right{
+  flex: 1;
+}
+.container .search-right image{
+  display: inline-block;
+  width: 45rpx;
+  height: 45rpx;
+  padding: 10rpx
+}
