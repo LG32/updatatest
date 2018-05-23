@@ -2,11 +2,6 @@
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util.js')
-var QQMapWX = require('../../qqmap-wx-jssdk1.0/qqmap-wx-jssdk.js');
-var data_map = require('../../data/data_map.js')
-var mkey = new QQMapWX({
-  key: '7NBBZ-YF4HK-UONJZ-AVJYJ-5Y5V7-XFFU5'
-});
 
 Page({
 
@@ -19,76 +14,41 @@ Page({
     // latitude: {},
     latitude: 45.720028,
     longitude: 126.646675,
-    centerX: 126.646675,
-    centerY: 45.720028,
-    content: "",
-    markers: [],
-    // markers: [{
-    //   id: 1,
-    //   latitude: 45.720028,
-    //   longitude: 126.646675,
-    //   name: '哈理工'
-    // },
-    // {
-    //   id:2,
-    //   latitude: 44.720028,
-    //   longitude: 126.646675,
-    //   name: '榆林'
-    // }],
-    // covers: [{
-    //   latitude: 45.720028,
-    //   longitude: 126.646675,
-    //   iconPath: '/images/icon/icon_point.png'
-    // },
-    // {
-    //   latitude: 44.720028,
-    //   longitude: 126.646675,
-    //   iconPath: '/images/icon/icon_point.png'
-    // }]
+    markers: [{
+      id: 1,
+      latitude: 45.720028,
+      longitude: 126.646675,
+      name: '哈理工'
+    }],
+    covers: [{
+      latitude: 45.720028,
+      longitude: 126.646675,
+      iconPath: '/image/location.png'
+    }]
   },
 
   onReady: function (e) {
     this.mapCtx = wx.createMapContext('myMap')
   },
 
-  onLoad: function () {
-    console.log('地图定位！')
+  getJinWei: function () {
     var that = this
     wx.getLocation({
-      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-      success: (res) => {
-        console.log(res)
-        var latitude = res.latitude;
-        var longitude = res.longitude;
-        var marker = this.createMarker(res);
-        this.setData({
-          centerX: longitude,
-          centerY: latitude,
-          markers: this.getMarkers()
+      success: function (res) {
+        var mlatitude = res.latitude
+        var mlongitude = res.longitude
+        var mspeed = res.speed
+        var maccuracy = res.accuracy
+
+        that.setData({
+          message: true,
+          latitude: '纬度为:' + mlatitude,
+          longitude: '经度为:' + mlongitude
         })
-      }
-    });
-  },
-
-  getJinWei: function () {
-    // var that = this
-    // wx.getLocation({
-    //   success: function (res) {
-    //     var mlatitude = res.latitude
-    //     var mlongitude = res.longitude
-    //     var mspeed = res.speed
-    //     var maccuracy = res.accuracy
-
-    //     that.setData({
-    //       message: true,
-    //       latitude: '纬度为:' + mlatitude,
-    //       longitude: '经度为:' + mlongitude
-    //     })
-    //     console.log('得到经纬')
-    //     console.log('纬度为:' + mlatitude)
-    //     console.log('经度为:' + mlongitude)
-    //   },
-    // })
+        console.log('纬度为:' + mlatitude)
+        console.log('经度为:' + mlongitude)
+      },
+    })
   },
 
   getCenterLocation: function () {
@@ -99,14 +59,13 @@ Page({
       success: function (res) {
         mlatitude = res.latitude
         mlongitude = res.longitude
-        console.log('getCenterLocation')
         console.log('纬度为:' + mlatitude)
         console.log('经度为:' + mlongitude)
       }
     })
 
     this.mapCtx.translateMarker({
-      markerId: 1,
+      markerId: 2,
       autoRotate: false,
       duration: 1000,
       destination: {
@@ -114,7 +73,7 @@ Page({
         longitude: mlongitude,
       },
       animationEnd() {
-        console.log('translateMarker animation end')
+        console.log('animation end')
       }
     })
   },
@@ -124,18 +83,18 @@ Page({
   },
 
   translateMarker: function (mlatitude, mlongitude) {
-    this.mapCtx.translateMarker({
-      markerId: 1,
-      autoRotate: false,
-      duration: 1000,
-      destination: {
-        latitude: 45.80216,
-        longitude: 126.5358,
-      },
-      animationEnd() {
-        console.log('animation end')
-      }
-    })
+      this.mapCtx.translateMarker({
+        markerId: 1,
+        autoRotate: false,
+        duration: 1000,
+        destination: {
+          latitude: 45.80216,
+          longitude: 126.5358,
+        },
+        animationEnd() {
+          console.log('animation end')
+        }
+      })
   },
 
   includePoints: function () {
@@ -149,100 +108,7 @@ Page({
         longitude: 113.3345211,
       }]
     })
-  },
+  }
 
-  /**
-   *搜索地点
-   */
-  contentInput: function (e) {
-    this.setData({
-      content: e.detail.value
-    })
-    console.log(this.data.content);
-    mkey.search({
-      keyword: this.data.content,
-      success: function (res) {
-        console.log(res);
-      },
-      fail: function (res) {
-        console.log(res);
-      },
-      complete: function (res) {
-        console.log(res);
-      }
-    });
-  },
-
-  /**
-   * 计算距离
-   */
-  distance: function () {
-    mkey.calculateDistance({
-      to: [{
-        latitude: 45.720028,
-        longitude: 126.646675,
-      }, {
-        latitude: 45.80216,
-        longitude: 126.5358,
-      }],
-      success: function (res) {
-        console.log(res);
-      },
-      fail: function (res) {
-        console.log(res);
-      },
-      complete: function (res) {
-        console.log(res);
-      }
-    });
-  },
-
-  /**
-   * 搜索推荐
-   */
-  searchSuggestion: function (e) {
-    this.setData({
-      content: e.detail.value
-    })
-    mkey.getSuggestion({
-      keyword: this.data.content,
-      success: function (res) {
-        console.log(res);
-      },
-      fail: function (res) {
-        console.log(res);
-      },
-      complete: function (res) {
-        console.log(res);
-      }
-    })
-  },
-
-  makeMarker: function (e) {
-
-  },
-
-  getMarkers() {
-    var markers = [];
-    for (var item of data_map) {
-      var marker = this.createMarker(item);
-      markers.push(marker)
-    }
-    return markers;
-  },
-
-createMarker(point){
-  var latitude = point.latitude;
-  var longitude = point.longitude; 
-  var marker = {
-    iconPath: "/images/icon/icon_point.png",
-    id: point.id || 0,
-    name: point.name || '',
-    latitude: latitude,
-    longitude: longitude,
-    width: 35,
-    height: 40
-  };
-  return marker;
-}
+  
 })

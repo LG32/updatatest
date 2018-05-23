@@ -49,10 +49,9 @@
 .container .feed-item .feed-source{
   width: 690rpx;
   left: 0;
-  height: 50rpx;
 }
 .container .feed-item .feed-source .avatar{
-  position: relative;
+  position: static;
   display: inline-block;
 }
 .container .feed-item .feed-source a{

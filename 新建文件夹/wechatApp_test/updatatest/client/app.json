@@ -1,22 +1,24 @@
 {
   "pages": [
-    "pages/map/map",
+    "pages/start/start",
     "pages/firstpage/firstpage",
-    "pages/index/index",
-    "pages/addCgi/addCgi"
-    
+    "pages/answer/answer",
+    "pages/my/my",
+    "pages/publish/publish",
+    "pages/mission/mission",
+    "pages/camera/camera"
   ],
   "window": {
-    "backgroundColor": "#DE00C8",
+    "backgroundColor": "#69C3AA",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#DE00C8",
-    "navigationBarTitleText": "Wafer Quick Start",
+    "navigationBarBackgroundColor": "#69C3AA",
+    "navigationBarTitleText": "去拍照",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color": "#DE00C8",
+    "color": "#69C3AA",
     "selectedColor": "#2A8CE5",
-    "backgroundColor": "#DE00C8",
+    "backgroundColor": "#69C3AA",
     "borderStyle": "white",
     "list": [
       {
@@ -26,18 +28,18 @@
         "selectedIconPath": "images/icon/index_focus.png"
       },
       {
-        "pagePath": "pages/map/map",
-        "test": "地图",
+        "pagePath": "pages/publish/publish",
+        "test": "发布",
         "iconPath": "images/icon/discovery.png",
         "selectedIconPath": "images/icon/discovery_focus.png"
       },
       {
-        "pagePath": "pages/index/index",
-        "test": "测试页",
+        "pagePath": "pages/my/my",
+        "test": "我的",
         "iconPath": "images/icon/star.png",
         "selectedIconPath": "images/icon/star2.png"
       }
     ]
   },
-  "debug":true
+  "debug": true
 }
