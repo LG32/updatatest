@@ -166,6 +166,12 @@
   width: 500rpx;
   margin: 20rpx 0;
 }
+.avatar {
+  display: inline-block;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
+}
 .openMap{
     margin: 15rpx;
 }
@@ -180,4 +186,8 @@
 .spaceNULL{
   height: 120rpx;
   width: 100%
+}
+.comments-pic .picture{
+  width: 590rpx;
+  height: 445rpx;
 }

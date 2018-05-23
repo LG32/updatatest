@@ -6,7 +6,7 @@
   height: 100%;
   border-top: 1px #eee solid;
   background-color: rgba(0, 0, 0, 0.2);
-  top: 110px !important
+  top: 200rpx !important
 }
 .wxSearchInner{
   position: absolute;

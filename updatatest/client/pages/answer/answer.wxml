@@ -30,6 +30,10 @@
       <text>地点：{{item.address}}{{item.area_name}}</text>
     </view>
 
+    <view class='master-content'>
+      <text>问题赏金：{{item.gold}}</text>
+    </view>
+
     <view class='openMap'>
       <button bindtap='openMap' size='mini' class='openMap_btn'>点我查看详细位置</button>
     </view>
@@ -44,11 +48,12 @@
     <block wx:for='{{comments}}' wx:key='{{comments_id}}'>
       <view class="comments-text" style="margin-top:15rpx;">
         <view style="width:100rpx;float:left;">
-          <image style="width: 100rpx; height: 100rpx;" src="{{item.comments_avatarUrl}}"></image>
+          <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{item.comments_avatarUrl}}"></image>
+          <text>{{item.comments_name}}</text>
         </view>
         <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
           <view class='comments-pic'>
-            <image src='{{item.comments_pic}}' data-list="{{item.comments_pic}}" data-src="{{item.comments_pic}}" bindtap='biggerphoto'></image>
+            <image class='picture' src='{{item.comments_pic}}' data-list="{{item.comments_pic}}" data-src="{{item.comments_pic}}" bindtap='biggerphoto'></image>
           </view>
           <view>{{item.comments_des}}</view>
           <view style="color: #B0B0B0;font-size:24rpx;">{{item.dateReputation}} </view>

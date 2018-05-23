@@ -13,8 +13,8 @@
       </view>
       <view class="bd">
          <image class="smalltitle" src="/images/more/titledes.png"></image>
-        <view class="confirm-btn" bindtap='goToIndex'>
-            <button  wx:if="{{canIUse}} "open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">同意授权登录</button>  
+         <view class="confirm-btn" > 
+            <button  wx:if="{{canIUse}} "open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='button'>同意授权登录</button>  
             <view wx:else>请升级微信版本</view> 
            <!-- <text bindtap='getLocation'>开始任务</text>  -->
         </view>

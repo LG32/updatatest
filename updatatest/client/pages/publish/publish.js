@@ -1,7 +1,6 @@
 // pages/publish/publish.js
 
 Page({
-
   data: {
     userInfo: {
       avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/8wia9K3Z9baKviaRHibq47d4gZPiakzKYx1ylySrpwfBMmkkiaDJQ68CsmFcVD08NAfib5peVmhDTIQ1ZmeRLUDCs7dg/132",
@@ -56,7 +55,7 @@ Page({
             duration: 2000,
             complete: function () {
               setTimeout(function () {
-                wx.reLaunch({
+                wx.switchTab({
                   url: '/pages/my/my',
                 })
               }, 2000)
@@ -69,13 +68,13 @@ Page({
             title: '发布失败',
             icon: 'loading',
             duration: 2000,
-            complete: function () {
-              setTimeout(function () {
-                wx.switchTab({
-                  url: '/pages/my/my',
-                })
-              }, 2000)
-            }
+            // complete: function () {
+            //   setTimeout(function () {
+            //     wx.switchTab({
+            //       url: '/pages/my/my',
+            //     })
+            //   }, 2000)
+            // }
           })
         },
         complete: function (res) { },

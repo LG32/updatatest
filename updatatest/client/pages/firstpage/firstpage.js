@@ -10,7 +10,9 @@ var mkey = new QQMapWX({
 Page({
   data: {
     feed: [],
-    feed_length: 0
+    feed_length: 0,
+    firstlist: [],
+    user_info: []
   },
 
   /**
@@ -20,9 +22,10 @@ Page({
     console.log('onLoading')
     var that = this
     that.getData();
-    wxSearch.init(that, 43, ['哈尔滨市', '北京市', '广州市', '上海市','深圳市']);
+    wxSearch.init(that, 43, ['哈尔滨市', '北京市', '广州市', '上海市', '深圳市']);
     wxSearch.initMindKeys(['哈尔滨市道里区中央大街', '北京市海淀区天安门', '广州市天河区海心沙 ', '上海市南京北路']);
     that.getLocation();
+    console.log("1235464879"+wx.getStorageSync('skey'))
 
   },
 
@@ -43,6 +46,8 @@ Page({
   getLocation: function () {
     var latitude = ''
     var longitude = ''
+    var that = this
+    var obj = []
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
@@ -61,7 +66,8 @@ Page({
             wx.request({
               url: 'https://wudnq2cw.qcloud.la/weapp/firstpage/',
               data: {
-                city: res.result.address_component.city,
+                // city: res.result.address_component.city,
+                city: "北京市",
                 latitude: latitude,
                 longitude: longitude
               },
@@ -72,8 +78,17 @@ Page({
               dataType: 'json',
               responseType: 'text',
               success: function (res) {
-                console.log("经纬GET成功")
                 console.log(res.data)
+                for (var i = 0; i < res.data.data.msg.length; i++) {
+                  obj[i] = JSON.parse(res.data.data.msg[i].user_info);
+                }
+                // var obj = res.data.data.msg[0].user_info
+                console.log(obj)
+                console.log("经纬GET成功")
+                that.setData({
+                  firstlist: res.data,
+                  user_info: obj
+                })
               },
               fail: function (res) {
                 console.log("经纬GET失败")
