@@ -18,35 +18,35 @@
 
   <template is="wxSearch" data="{{wxSearchData}}" />
 
-  <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
+  <block wx:for="{{firstlist}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
     <view class='feed-item'>
       <view class='feed-source'>
         <a class=''>
           <view class='avatar'>
-            <image src='{{item.feed_source_img}}'></image>
+            <image src='{{user_info[idx].avatarUrl}}'></image>
           </view>
-          <text>{{item.feed_source_name}} {{item.question}}</text>
+          <text>{{user_info[idx].nickName}} 提出任务:{{item.title}}</text>
         </a>
         <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
       </view>
       <view class='feed-content'>
-        <navigator url="../answer/answer?question_id={{item.question_id}}">
+        <navigator url="../answer/answer?question_id={{item.questionID}}">
           <view class='question' qid="{{question_id}}">
             <a class='quesiton-link'>
-              <text>{{item.simple_description}}</text>
+              <text>{{item.description}}</text>
             </a>
           </view>
           <view class='answer-body'>
-            <text class='answer-txt' aid="{{question_id}}">{{item.description}}</text>
+            <text class='answer-txt' aid="{{question_id}}">任务地点:{{item.adress}}</text>
             <view class='answer-actions'>
               <view class="like dot">
-                <a>{{item.good_num}} 赞同 </a>
+                <a>{{item.questionGold}} 问题赏金 </a>
               </view>
               <view class="comments dot">
-                <a>{{item.comment_num}} 评论 </a>
+                <a>{{item.answerSum}} 评论 </a>
               </view>
               <view class='distance dot'>
-                <a>{{}} 距离</a>
+                <a>{{distance[idx]}}米 距离</a>
               </view>
             </view>
           </view>

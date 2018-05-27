@@ -1,6 +1,20 @@
 /* pages/camera/camera.wxss */
-
-.aaa{
+.container {
+  padding: 0;
+  font-size: 35rpx;
+  background: #fff;
+  color: #000;
+}
+.question {
+  position: relative;
+  width: 700rpx;
+  padding: 40rpx 50rpx 30rpx;
+  background: #298de5;
+  color: #fff;
+  font-size: 38rpx;
+  line-height: 48rpx;
+}
+.camera{
   border:1px solid #d0d0d0;
   padding:20rpx;
   margin: 20rpx;
@@ -11,20 +25,22 @@
 .search_arr{
   border:1px solid #d0d0d0;
   border-radius: 5prx;
-  height: 80rpx;
-  margin:30rpx;
+  height: 150rpx;
+  margin:20rpx;
   flex: wrap;
 }
-.img{
-  
+.cameraimg{
   width:670rpx;
   height:500rpx;
   padding:0rpx;
   margin:0 auto;
-  
-  
 }
-.buttonstyle{
-  background-color: #c0c0c0;
-  margin:10rpx;
+.publish_btn{
+  border: 1px solid #298de5; 
+  border-radius: 30rpx;  
+  background-color: white;
+  margin: 30rpx;
+}
+.publish_btn::after{
+  border: none; 
 }

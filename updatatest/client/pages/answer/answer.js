@@ -33,6 +33,7 @@ Page({
         });
       }
     })
+
   },
   biggerphoto: function (event) {
     var srcList = new Array();
@@ -51,5 +52,9 @@ Page({
       longitude: Number(that.data.master[0].longitude),
       scale: 28
     })
-  }
+  },
+  // addGold: function () {
+  //   var that = this
+
+  // }
 })

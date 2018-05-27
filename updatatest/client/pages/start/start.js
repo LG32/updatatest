@@ -4,6 +4,7 @@ var qcloud = require('../../vendor/wafer2-client-sdk/index.js')
 var config = require('../../config.js')
 var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
 var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
+
 var app = getApp();
 
 Page({
@@ -12,124 +13,70 @@ Page({
     angle: 0,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {},
+    showLoading: '',
   },
-  // goToIndex: function () {
-  //   wx.switchTab({
-  //     url: '/pages/firstpage/firstpage',
-  //   });
-  // },
-  onLoad: function (e) {
-    var that = this
-    // wx.setNavigationBarTitle({
-    //   title: wx.getStorageSync('mallName')
-    // })
-    // app.getUserInfo(function (userInfo) {
-    //   that.setData({
-    //     userInfo: userInfo
-    //   })
-    // })
-    // 查看是否授权
-    // wx.getSetting({
-    //   success: function (res) {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-    //       app.getUserInfo(function (userInfo) {
-    //         that.setData({
-    //           userInfo: userInfo
-    //         })
-    //         console.log(userInfo)
-    //       })
-    //     }
-    //   }
-    // })
-    console.log(wx.getStorageSync(SESSION_KEY))
-  },
-  // 用户登录示例
-  login: function () {
-    if (this.data.logged) return
-    console.log('正在登录')
-    var that = this
 
-    // 调用登录接口
-    qcloud.login({
-      success(result) {
-        if (result) {
-          console.log('登录成功')
-          that.setData({
-            userInfo: result,
-            logged: true
-          })
-        } else {
-          // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
-          qcloud.request({
-            url: config.service.requestUrl,
-            login: true,
-            success(result) {
-              console.log('登录成功')
-              that.setData({
-                userInfo: result.data.data,
-                logged: true
-              })
-            },
-            fail(error) {
-              console.log('request fail', error)
-            }
-          })
-        }
-      },
-      fail(error) {
-        console.log('登录失败', error)
-      }
+  onLoad: function (e) {
+    var temp = wx.getStorageSync(SESSION_KEY)
+    var that = this
+    that.setData({
+      userInfo: temp.userinfo,
     })
   },
-
   bindGetUserInfo: function (e) {
-    if (this.data.logged) {
-      wx.switchTab({
-        url: '/pages/firstpage/firstpage',
-      });
-      return;
-    }
-    console.log('bind开始')
     var that = this;
+    that.setData({
+      showLoading: 'true'
+    })
+    console.log('start bindGetUserInfo')
     var userInfo = e.detail.userInfo;
-
     // 查看是否授权
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
-          //console.log(res.authSetting['scope.userInfo']);
           console.log('getSetting success')
+          // qcloud.clearSession();
+          var options = {
+            encryptedData: e.detail.encryptedData,
+            iv: e.detail.iv,
+            userInfo: userInfo
+          }
+          that.doLogin(options);
           // 检查登录是否过期
-          wx.checkSession({
-            success: function () {
-              console.log('bind getSetting success')
-              // 登录态未过期
-              that.setData({
-                userInfo: userInfo,
-                logged: true
-              })
-              wx.switchTab({
-                url: '/pages/firstpage/firstpage',
-              });
-            },
-            fail: function () {
-              console.log('bind getSetting fail')
-              // qcloud.clearSession();
-              // 登录态已过期，需重新登录
-              var options = {
-                encryptedData: e.detail.encryptedData,
-                iv: e.detail.iv,
-                userInfo: userInfo
-              }
-              that.doLogin(options);
-            },
-          });
+          // wx.checkSession({
+          //   success: function () {
+          //     console.log('bind checkSetting success')
+          //     // 登录态未过期
+          //     that.setData({
+          //       userInfo: userInfo,
+          //       logged: true
+          //     })
+          //     wx.switchTab({
+          //       url: '/pages/firstpage/firstpage',
+          //     });
+          //   },
+          //   fail: function () {
+          //     console.log('bind checkSetting fail')
+          //     qcloud.clearSession();
+          //     // 登录态已过期，需重新登录
+          //     var options = {
+          //       encryptedData: e.detail.encryptedData,
+          //       iv: e.detail.iv,
+          //       userInfo: userInfo
+          //     }
+          //     that.doLogin(options);
+          //   },
+          // });
         } else {
+          console.log('未授权')
+          wx.showModal({
+            title: '授权提示',
+            content: '小程序需要您的微信授权才能使用哦~ 错过授权页面的处理方法：删除小程序->重新搜索进入->点击授权按钮'
+          })
         }
       },
       fail: function () {
-        console.log('getSetting fail')
+        console.log('getSetting fail')       
       }
     });
   },
@@ -137,8 +84,10 @@ Page({
   doLogin: function (options) {
     var that = this;
     console.log('doLogin')
+    console.log(options)
     wx.login({
       success: function (loginResult) {
+        console.log('login success')
         console.log(loginResult)
         var loginParams = {
           code: loginResult.code,
@@ -158,19 +107,36 @@ Page({
             });
           },
           fail(error) {
-            console.log('登录失败', error)
+            console.log('requestLogin登录失败', error)
+            wx.showModal({
+              title: '登录提示',
+              content: '登录失败，网络状态似乎不太好',
+              confirmText: '重连',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                  // that.bindGetUserInfo();
+                  that.doLogin(options);
+                  that.setData({
+                    showLoading: ''
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                  that.setData({
+                    showLoading: ''
+                  })
+                }
+              }
+            })
           }
         });
       },
       fail: function (loginError) {
-        console.log('登录失败', loginError)
+        console.log('Login登录失败', loginError)
       },
     });
-
   },
-  // bindGetUserInfo: function (e) {
-  //   console.log(e.detail.userInfo)
-  // },
+
   onShow: function () {
 
   },

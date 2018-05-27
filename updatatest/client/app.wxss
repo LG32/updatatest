@@ -87,7 +87,7 @@
   padding: 10rpx 0 0 0;
 }
 .container .feed-item .feed-content .question text{
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600px;
   line-height: 40rpx;
   text-space: 5rpx;
@@ -95,9 +95,9 @@
 .container .feed-item .feed-content .answer-body{
   padding: 10rpx 0 0 0;
   /*height: 10rpx;*/
-  font-size: 24rpx;
+  font-size: 22rpx;
   line-height: 28rpx;
-  color: #5b5b5b;
+  color: #a0acac;
 }
 .container .feed-item .feed-content .answer-actions{
   width: 690rpx;

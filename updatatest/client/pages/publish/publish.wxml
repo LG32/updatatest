@@ -12,7 +12,7 @@
           </view>
           <view class='master-info flex-item'>
             <text class='master-name'>{{userInfo.nickName}}</text>
-            <text class='master-des'>持有金:{{userInfo.gold}}</text>
+            <text class='master-des'>持有金:{{gold}}</text>
           </view>
           <view class='follow flex-item'>
             <!-- <text form-type="submit">发布</text>  -->

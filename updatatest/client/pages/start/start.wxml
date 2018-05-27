@@ -12,14 +12,17 @@
         <image class="wave wave-bg" src="/images/more/wave.png" mode="aspectFill"></image>
       </view>
       <view class="bd">
-         <image class="smalltitle" src="/images/more/titledes.png"></image>
-         <view class="confirm-btn" > 
-            <button  wx:if="{{canIUse}} "open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='button'>同意授权登录</button>  
-            <view wx:else>请升级微信版本</view> 
-           <!-- <text bindtap='getLocation'>开始任务</text>  -->
+        <image class="smalltitle" src="/images/more/titledes.png"></image>
+        <view class="confirm-btn">
+          <button wx:if="{{canIUse}} " open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='button'>同意授权登录</button>
+          <view wx:else>请升级微信版本</view>
+          <!-- <text bindtap='getLocation'>开始任务</text>  -->
         </view>
         <text class="copyright">power by @little monster</text>
       </view>
     </view>
   </block>
+  <view>
+  <loading wx:if = '{{showLoading}}'>加载中</loading>
+  </view>
 </view>

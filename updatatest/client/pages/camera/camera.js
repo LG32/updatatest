@@ -5,119 +5,83 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tempFilePaths:'/images/icon/icon_camera.png ',
-
-  
-  },
-  play() {
-    this.videoCtx.play()
-  },
-  pause() {
-    this.videoCtx.pause()
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+    tempFilePaths: '/images/icon/icon_camera.png ',
+    focus: 'false',
+    textAreaValue: '',
+    pic_list: {},
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-   
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  /*onShareAppMessage: function () {
-  
-  },
-  changeIndicatorDots: function (e) {
-    this.setData({
-      indicatorDots: !this.data.indicatorDots
-    })
-  },
-  changeAutoplay: function (e) {
-    this.setData({
-      autoplay: !this.data.autoplay
-    })
-  },
-  intervalChange: function (e) {
-    this.setData({
-      interval: e.detail.value
-    })
-  },
-  durationChange: function (e) {
-    this.setData({
-      duration: e.detail.value
-    })
-  }*/
   bindButtonTap: function () {
     this.setData({
       focus: true
     })
   },
-  bindKeyInput: function (e) {
-    this.setData({
-      inputValue: e.detail.value
+
+  formSubmit: function (e) {
+    var that = this
+    console.log(e.detail.value);
+    that.setData({
+      pic_list: that.data.tempFilePaths,
     })
-  },
-  bindReplaceInput: function (e) {
-    var value = e.detail.value;
-    var pos = e.detail.cursor;
-    if (pos != -1) {
-      //光标在中间
-      var left = e.detail.value.slice(0, pos);
-      //计算光标的位置
-      pos = left.replace(/11/g, '2').length;
-    }
+    if (that.data.pic_list == '/images/icon/icon_camera.png' ||
+      e.detail.value.mark == '') {
+      wx.showToast({
+        title: '请完善信息',
+        icon: 'loading',
+        duration: 2000
+      })
+    } else {
+      wx.request({
+        url: 'https://wudnq2cw.qcloud.la/weapp/help/',
+        data: {
+          skey: that.data.skey,
+          description: e.detail.value.mark,
+          pic_list: that.data.Pic_list,
+        },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method: 'post',
+        dataType: 'json',
+        responseType: 'text',
 
-    //直接返回对象，可以对输入进行过滤处理，同时可以控制光标的位置
-    return {
-      value: value.replace(/11/g, '2'),
-      cursor: pos
-    }
+        success: function (res) {
+          if (res.data.code == '0') {
+            console.log("任务post成功")
+            console.log(res.data)
+            wx.showToast({
+              title: '提交成功',
+              icon: 'success',
+              duration: 2000,
+              complete: function () {
+                setTimeout(function () {
+                  wx.reLaunch({
+                    url: '/pages/my/my'
+                  })
+                }, 2000)
+              }
+            })
+          }
+          else {
+            console.log("任务post失败")
+            wx.showToast({
+              title: '提交失败',
+              icon: 'loading',
+              duration: 2000,
+            })
+          }
+        },
 
-    //或者直接返回字符串,光标在最后边
-    //return value.replace(/11/g,'2'),
+        fail: function (res) {
+          console.log("任务post失败")
+          wx.showToast({
+            title: '提交失败',
+            icon: 'loading',
+            duration: 2000,
+          })
+        },
+      })
+    }
   },
   chooseimage: function () {
     var that = this;
