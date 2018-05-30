@@ -20,13 +20,14 @@ const formatNumber = n => {
 var showBusy = text => wx.showToast({
   title: text,
   icon: 'loading',
-  duration: 10000
+  duration: 5000
 })
 
 // 显示成功提示
 var showSuccess = text => wx.showToast({
   title: text,
-  icon: 'success'
+  icon: 'success',
+  duration: 5000
 })
 
 // 显示失败提示
@@ -40,19 +41,5 @@ var showModel = (title, content) => {
   })
 }
 
-
-var question = require('../data/data_question.js')
-
-function getQuestions() {
-  return question.question
-}
-
-// var mapdata = require('../data/data_map.js')
-
-// function getMapDatas()
-// {
-//   return mapdata.mapdata
-// }
-
-module.exports = { formatTime, showBusy, showSuccess, showModel, getQuestions}
+module.exports = {formatTime, showBusy, showSuccess, showModel}
 

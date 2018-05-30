@@ -6,7 +6,6 @@
   background: #f0f4f3;
   color: #000;
 }
-
 .question-view {
   position: relative;
   width: 700rpx;

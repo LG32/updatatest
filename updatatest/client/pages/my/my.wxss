@@ -6,7 +6,7 @@
   background: #f0f4f3;
   color: #000;
 }
-.question {
+.question-view {
   position: relative;
   width: 700rpx;
   padding: 40rpx 50rpx 30rpx;
@@ -101,4 +101,14 @@
   background: #fff;
   width: 670rpx;
   padding: 20rpx 40rpx;
+}
+.message-sum{
+  background-color: #FF2E2E;
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 100%;  
+}
+.message-sum text{
+  font-size: 14;
+  color: white;
 }

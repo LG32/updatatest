@@ -16,4 +16,5 @@
     </view>
     <button form-type="submit" class='publish_btn'>提交</button>
   </form>
+  <text class='copyright'>tips:现在无法完成？稍后可在我的信息中点击完成</text>
 </view>

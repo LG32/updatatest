@@ -165,8 +165,6 @@ page{
 .confirm-btn:active {
   opacity: .8;
 }
-
-
 .copyright {
   font-size: 28rpx;
   color: #999;

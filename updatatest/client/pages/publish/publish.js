@@ -102,9 +102,6 @@ Page({
         complete: function (res) { },
       })
     }
-    // wx.switchTab({
-    //   url: '/pages/my/my',
-    // })
   },
   /**
    * 打开腾讯位置
@@ -134,7 +131,7 @@ Page({
   },
   numJianTap: function () {
     var that = this
-    if (that.data.goldsNumber > 5) {
+    if (that.data.goldsNumber > goldsNumMin) {
       var tempgolds = that.data.goldsNumber;
       tempgolds--;
       that.setData({

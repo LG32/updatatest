@@ -40,13 +40,13 @@
             <text class='answer-txt' aid="{{question_id}}">任务地点:{{item.adress}}</text>
             <view class='answer-actions'>
               <view class="like dot">
-                <a>{{item.questionGold}} 问题赏金 </a>
+                <a> 问题:{{item.questionGold}}赏金 </a>
               </view>
               <view class="comments dot">
                 <a>{{item.answerSum}} 评论 </a>
               </view>
               <view class='distance dot'>
-                <a>{{distance[idx]}}米 距离</a>
+                <a>{{distance[idx]}} 距离</a>
               </view>
             </view>
           </view>

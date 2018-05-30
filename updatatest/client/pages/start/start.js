@@ -4,7 +4,6 @@ var qcloud = require('../../vendor/wafer2-client-sdk/index.js')
 var config = require('../../config.js')
 var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
 var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
-
 var app = getApp();
 
 Page({
@@ -36,37 +35,52 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           console.log('getSetting success')
           // qcloud.clearSession();
-          var options = {
-            encryptedData: e.detail.encryptedData,
-            iv: e.detail.iv,
-            userInfo: userInfo
-          }
-          that.doLogin(options);
+          // var options = {
+          //   encryptedData: e.detail.encryptedData,
+          //   iv: e.detail.iv,
+          //   userInfo: userInfo
+          // }
+          // that.doLogin(options);
           // 检查登录是否过期
-          // wx.checkSession({
-          //   success: function () {
-          //     console.log('bind checkSetting success')
-          //     // 登录态未过期
-          //     that.setData({
-          //       userInfo: userInfo,
-          //       logged: true
-          //     })
-          //     wx.switchTab({
-          //       url: '/pages/firstpage/firstpage',
-          //     });
-          //   },
-          //   fail: function () {
-          //     console.log('bind checkSetting fail')
-          //     qcloud.clearSession();
-          //     // 登录态已过期，需重新登录
-          //     var options = {
-          //       encryptedData: e.detail.encryptedData,
-          //       iv: e.detail.iv,
-          //       userInfo: userInfo
-          //     }
-          //     that.doLogin(options);
-          //   },
-          // });
+          wx.checkSession({
+            success: function () {
+              var temp = wx.getStorageSync(SESSION_KEY)
+              console.log('bind checkSetting success')
+              console.log(temp)
+              // 登录态未过期
+              console.log(userInfo)
+              that.setData({
+                userInfo: userInfo,
+                logged: true
+              })
+              if (temp == '') {
+                //登录态未过期，但本地无用户信息
+                console.log('本地数据获取失败')
+                var options = {
+                  encryptedData: e.detail.encryptedData,
+                  iv: e.detail.iv,
+                  userInfo: userInfo
+                }
+                that.doLogin(options)
+              } else {
+                console.log('本地数据获取成功')
+                wx.switchTab({
+                  url: '/pages/firstpage/firstpage',
+                });
+              }
+            },
+            fail: function () {
+              console.log('bind checkSetting fail')
+              qcloud.clearSession();
+              // 登录态已过期，需重新登录
+              var options = {
+                encryptedData: e.detail.encryptedData,
+                iv: e.detail.iv,
+                userInfo: userInfo
+              }
+              that.doLogin(options);
+            },
+          });
         } else {
           console.log('未授权')
           wx.showModal({
@@ -76,7 +90,7 @@ Page({
         }
       },
       fail: function () {
-        console.log('getSetting fail')       
+        console.log('getSetting fail')
       }
     });
   },
@@ -115,7 +129,6 @@ Page({
               success: function (res) {
                 if (res.confirm) {
                   console.log('用户点击确定')
-                  // that.bindGetUserInfo();
                   that.doLogin(options);
                   that.setData({
                     showLoading: ''

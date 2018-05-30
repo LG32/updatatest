@@ -1,6 +1,8 @@
 // pages/camera/camera.js
+var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
+var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
+var util = require('../../utils/util.js')
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -8,7 +10,39 @@ Page({
     tempFilePaths: '/images/icon/icon_camera.png ',
     focus: 'false',
     textAreaValue: '',
-    pic_list: {},
+    pic_list: '',
+    question_id: '',
+    skey: '',
+  },
+
+  onLoad: function () {
+    var that = this
+    var question_id = wx.getStorageSync('question_id')
+    var temp = wx.getStorageSync(SESSION_KEY)
+    console.log(question_id)
+    that.setData({
+      question_id: question_id,
+      skey: temp.skey,
+    })
+    that.getMission();
+  },
+
+  getMission: function () {
+    var that = this
+    wx.request({
+      url: 'https://wudnq2cw.qcloud.la/weapp/acceptask/',
+      method: 'POST',
+      data: {
+        questionID: that.data.question_id,
+        skey: that.data.skey,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: function (res) {
+        console.log('成功接收任务')
+      }
+    })
   },
 
   bindButtonTap: function () {
@@ -19,10 +53,13 @@ Page({
 
   formSubmit: function (e) {
     var that = this
-    console.log(e.detail.value);
+    console.log('start formSubmit...')
+    console.log(e.detail.value.mark);
     that.setData({
       pic_list: that.data.tempFilePaths,
+      textAreaValue: e.detail.value.mark
     })
+    console.log(that.data.pic_list)
     if (that.data.pic_list == '/images/icon/icon_camera.png' ||
       e.detail.value.mark == '') {
       wx.showToast({
@@ -31,24 +68,23 @@ Page({
         duration: 2000
       })
     } else {
-      wx.request({
-        url: 'https://wudnq2cw.qcloud.la/weapp/help/',
-        data: {
-          skey: that.data.skey,
-          description: e.detail.value.mark,
-          pic_list: that.data.Pic_list,
-        },
+      wx.uploadFile({
+        url: 'https://wudnq2cw.qcloud.la/weapp/help',
+        filePath: that.data.pic_list,
+        name: 'file',
         header: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "content-type": "multipart/form-data"
         },
-        method: 'post',
-        dataType: 'json',
-        responseType: 'text',
+        formData: {
+          skey: that.data.skey,
+          comments: that.data.textAreaValue,
+          questionID: that.data.question_id,
+        },
 
         success: function (res) {
-          if (res.data.code == '0') {
+          console.log(res)
+          if (res.statusCode == '200') {
             console.log("任务post成功")
-            console.log(res.data)
             wx.showToast({
               title: '提交成功',
               icon: 'success',
@@ -61,6 +97,13 @@ Page({
                 }, 2000)
               }
             })
+          } else if (res.statusCode == '413') {
+            console.log("图片大小过大")
+            wx.showToast({
+              title: '图片不能大于1M，请不要上传原图',
+              icon: 'loading',
+              duration: 2000,
+            })
           }
           else {
             console.log("任务post失败")
@@ -71,7 +114,6 @@ Page({
             })
           }
         },
-
         fail: function (res) {
           console.log("任务post失败")
           wx.showToast({
@@ -98,12 +140,11 @@ Page({
         }
       }
     })
-
   },
   chooseWxImage: function (type) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: [type],
       success: function (res) {
         console.log(res);

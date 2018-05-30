@@ -6,7 +6,7 @@
   background: #f0f4f3;
   color: #000;
 }
-.question {
+.question-view {
   position: relative;
   width: 700rpx;
   padding: 40rpx 50rpx 30rpx;
@@ -185,7 +185,10 @@
 }
 .spaceNULL{
   height: 120rpx;
-  width: 100%
+  width: 100%;
+  font-size: 26rpx;
+  margin: 0 auto;
+  text-align: center;
 }
 .comments-pic .picture{
   width: 590rpx;

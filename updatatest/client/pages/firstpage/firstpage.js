@@ -9,8 +9,6 @@ var mkey = new QQMapWX({
 });
 Page({
   data: {
-    feed: [],
-    feed_length: 0,
     firstlist: [],
     user_info: [],
     distance: [],
@@ -106,6 +104,9 @@ Page({
       }
     });
   },
+  /**
+   * 计算距离
+   */
   getDistance: function () {
     var that = this
     var distance = new Array()
@@ -125,10 +126,16 @@ Page({
         }],
         success: function (res) {
           var setdistance = "distance[" + sum + "]"
-          console.log(res.result.elements[0].distance);
-          distance[sum] = res.result.elements[0].distance
-          console.log(sum)
-          console.log(setdistance)
+          var tempDistance = res.result.elements[0].distance
+          console.log(tempDistance);
+          if (tempDistance < 1000) {
+            distance[sum] = tempDistance + '米'
+          } else {
+            tempDistance = tempDistance / 1000
+            var s = tempDistance + "";
+            var str = s.substring(0, s.indexOf(".") + 3);
+            distance[sum] = str + '千米'
+          }
           that.setData({
             [setdistance]: distance[sum]
           })
@@ -136,11 +143,52 @@ Page({
         fail: function (res) {
           console.log(res);
         },
-        complete: function(){
+        complete: function () {
           sum++
         }
       });
     }
+  },
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh: function () {
+    var that = this
+    that.getLocation();
+    wx.stopPullDownRefresh()
+  },
+  /**
+   * 搜索框请求
+   */
+  searchRequest: function (e) {
+    var searchText = e.data.wxSearchData.value
+    var obj = []
+    var that = this
+    console.log('start search...')
+    console.log(searchText)
+    wx.request({
+      url: 'https://wudnq2cw.qcloud.la/weapp/search/',
+      method: 'GET',
+      data: {
+        question: searchText,
+      },
+      success: function (res) {
+        util.showSuccess('成功发送')
+        console.log(res.data)
+        for (var i = 0; i < res.data.data.msg.length; i++) {
+          obj[i] = JSON.parse(res.data.data.msg[i].user_info);
+        }
+        that.setData({
+          firstlist: res.data.data.msg,
+          user_info: obj
+        })
+        that.getDistance();
+      },
+      fail: function (res) {
+        util.showBusy('搜索失败')
+        console.log(res)
+      }
+    })
   },
   /**
    * 搜索框
@@ -148,6 +196,7 @@ Page({
   wxSearchFn: function (e) {
     var that = this
     wxSearch.wxSearchAddHisKey(that);
+    that.searchRequest(that)
   },
   wxSearchInput: function (e) {
     var that = this
