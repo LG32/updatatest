@@ -1,0 +1,57 @@
+<!--pages/firstpage/firstpage.wxml-->
+<import src="/wxSearch/wxSearch.wxml" />
+
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <view class='question_title'>
+    <text>搜寻任务</text>
+  </view>
+  
+  <view class='search flex-wrp'>
+    <view class='search-left flex-item'>
+      <image src="../../images/search.png"></image>
+      <input name="content" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="搜索任务" placeholder-class="search-placeholder" />
+    </view>
+    <view class='search-right flex-item' bindtap="wxSearchFn">
+      <image src='../../images/lighting.png'></image>
+    </view>
+  </view>
+
+  <template is="wxSearch" data="{{wxSearchData}}" />
+
+  <block wx:for="{{firstlist}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
+    <view class='feed-item'>
+      <view class='feed-source'>
+        <a class=''>
+          <view class='avatar'>
+            <image src='{{user_info[idx].avatarUrl}}'></image>
+          </view>
+          <text>{{user_info[idx].nickName}} 提出任务:{{item.title}}</text>
+        </a>
+        <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
+      </view>
+      <view class='feed-content'>
+        <navigator url="../answer/answer?question_id={{item.questionID}}">
+          <view class='question' qid="{{question_id}}">
+            <a class='quesiton-link'>
+              <text>{{item.description}}</text>
+            </a>
+          </view>
+          <view class='answer-body'>
+            <text class='answer-txt' aid="{{question_id}}">任务地点:{{item.adress}}</text>
+            <view class='answer-actions'>
+              <view class="like dot">
+                <a>{{item.questionGold}} 问题赏金 </a>
+              </view>
+              <view class="comments dot">
+                <a>{{item.answerSum}} 评论 </a>
+              </view>
+              <view class='distance dot'>
+                <a>{{distance[idx]}}米 距离</a>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </block>
+</scroll-view>

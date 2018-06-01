@@ -1,0 +1,196 @@
+/* pages/answer/answer.wxss */
+
+.container {
+  padding: 0;
+  font-size: 14rpx;
+  background: #f0f4f3;
+  color: #000;
+}
+.question {
+  position: relative;
+  width: 700rpx;
+  padding: 40rpx 50rpx 30rpx;
+  background: #298de5;
+  color: #fff;
+  font-size: 38rpx;
+  line-height: 48rpx;
+}
+.master {
+  position: relative;
+  margin: 0 auto;
+  width: 630rpx;
+  height: 90rpx;
+  padding: 30rpx;
+  background: #fff;
+  border: solid 1px #ebebeb;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px #bebebe;
+}
+.master-wrp {
+  position: relative;
+  width: 750rpx;
+  height: 150rpx;
+  background: #fff;
+}
+.master-wrp .bg-half {
+  position: absolute;
+  top: 0;
+  width: 750rpx;
+  height: 75rpx;
+  background: #298de5;
+}
+.master .avatar {
+  flex: 1;
+  width: 90rpx;
+  height: 90rpx;
+}
+.master .avatar image {
+  display: inline-block;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
+}
+.master .master-info {
+  flex: 5;
+  text-align: left;
+  padding: 10rpx 20rpx;
+  line-height: 38rpx;
+}
+.master .master-info text {
+  display: block;
+}
+.master .master-info .master-name {
+  font-size: 32rpx;
+}
+.master .master-info .master-des {
+  font-size: 22rpx;
+  color: #808080;
+  line-height: 28rpx;
+}
+.master .follow {
+  flex: 2;
+  padding: 15rpx 0;
+  font-size: 22rpx;
+}
+.master .follow text {
+  display: inline-block;
+  padding: 15rpx 20rpx;
+  color: #40bcd0;
+  border: solid 2px #40bcd0;
+  border-radius: 6rpx;
+}
+.master-content {
+  padding: 30rpx 40rpx;
+  background: #fff;
+  width: 100%;
+}
+.master-content text {
+  font-size: 32rpx;
+  color: #454545;
+  line-height: 44rpx;
+}
+.master-content image {
+  width: 100%;
+  margin: 20rpx 0;
+}
+.master-footer {
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  border-top: solid 1px #ebebeb;
+  background: #fff;
+  width: 100%;
+  padding: 20rpx 40rpx;
+}
+.master-footer .camera {
+  justify-content: space-between;
+  padding: 0 0 0 0rpx;
+}
+.master-footer .camera image {
+  display: block;
+  margin: 0 auto;
+  width: 70rpx;
+  height: 70rpx;
+}
+.master-footer .camera-btn {
+  flex: 5;
+  text-align: center;
+}
+.master-footer .camera-btn text {
+  display: block;
+  font-size: 20rpx;
+  color: #000;
+}
+.master-footer .rejuet-wrp {
+  flex: 4;
+}
+.master-footer .rejuet {
+  justify-content: space-between;
+  padding: 0 0 0 0rpx;
+}
+.master-footer .rejuet image {
+  display: block;
+  margin: 0 auto;
+  width: 65rpx;
+  height: 65rpx;
+}
+.master-footer .rejuet-btn {
+  flex: 1;
+  text-align: center;
+}
+.master-footer .rejuet-btn text {
+  display: block;
+  font-size: 20rpx;
+  color: #000;
+}
+.comments-des-info{
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-top: 0rpx !important
+}
+.label-title{
+  font-size:28rpx;
+  color:#000000;
+  padding: 30rpx;
+}
+.comments-text{
+  padding: 0 10rpx;
+  font-size:28rpx;
+  color:#666666;
+  line-height: 56rpx;
+  margin-bottom: 30rpx;
+}
+.comments-pic{
+  height: 500rpx;
+  width: 500rpx;
+  margin: 20rpx 0;
+}
+.avatar {
+  display: inline-block;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
+}
+.openMap{
+    margin: 15rpx;
+}
+.openMap_btn{
+  border: 2px solid #298de5; 
+  border-radius: 100rpx;  
+  background-color: white;
+}
+.openMap_btn::after{
+  border: none;
+}
+.spaceNULL{
+  height: 120rpx;
+  width: 100%;
+  font-size: 26rpx;
+  margin: 0 auto;
+  text-align: center;
+}
+.comments-pic .picture{
+  width: 590rpx;
+  height: 445rpx;
+}
