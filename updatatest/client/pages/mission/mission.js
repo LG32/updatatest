@@ -8,14 +8,16 @@ Page({
     userInfo: {},
     mission_userInfo: {},
     mission: {},
-    gold: "100",
+    gold: "0",
   },
 
   onLoad: function (options) {
     var that = this
     var temp = wx.getStorageSync(SESSION_KEY)
+    var gold = wx.getStorageSync('gold')
     that.setData({
       userInfo: temp.userinfo,
+      gold: gold
     })
     /**
      * 我发布的任务
@@ -65,6 +67,22 @@ Page({
         mission: finishedMission.question,
         mission_userInfo: obj,
       })
+    }
+  },
+  /**
+   * 分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '回味小程序',
+      desc: '带你寻找记忆中的地方',
+      path: '/pages/index/index?id=123',
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
     }
   },
 

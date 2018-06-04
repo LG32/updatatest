@@ -1,20 +1,23 @@
 <!--pages/camera/camera.wxml-->
-<view class='container'>
-  <view class='question'>
-    <text class='question-title'>任务进行中</text>
-  </view>
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
-  <view class="camera">
-    <image class='cameraimg' src="{{tempFilePaths}}" mode="aspectFit" bindtap='chooseimage'></image>
-  </view>
-
-  <text style='color:#c0c0c0'>(只允许上传一张图片)</text>
-  <form bindsubmit='formSubmit'>
-    <view class="section">
-      <text style='color:#3399ff'>备注：</text>
-      <textarea class="search_arr" placeholder="为你的美图留言" name="mark" value='{{camera_mark}}' />
+  <view class='container'>
+    <view class='question'>
+      <text class='question-title'>任务进行中</text>
     </view>
-    <button form-type="submit" class='publish_btn'>提交</button>
-  </form>
-  <text class='copyright'>tips:现在无法完成？稍后可在我的信息中点击完成</text>
-</view>
+
+    <view class="camera">
+      <image class='cameraimg' src="{{tempFilePaths}}" mode="aspectFit" bindtap='chooseimage'></image>
+    </view>
+
+    <text style='color:#c0c0c0'>(只允许上传一张图片)</text>
+    <form bindsubmit='formSubmit'>
+      <view class="section">
+        <text style='color:#3399ff'>备注：</text>
+        <textarea class="search_arr" placeholder="为你的美图留言" name="mark" value='{{camera_mark}}' />
+      </view>
+      <button form-type="submit" class='publish_btn'>提交</button>
+    </form>
+    <text class='copyright'>tips:现在无法完成？稍后可在我的信息中点击完成</text>
+  </view>
+</scroll-view>

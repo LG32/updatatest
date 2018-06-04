@@ -33,14 +33,6 @@ Page({
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
-          console.log('getSetting success')
-          // qcloud.clearSession();
-          // var options = {
-          //   encryptedData: e.detail.encryptedData,
-          //   iv: e.detail.iv,
-          //   userInfo: userInfo
-          // }
-          // that.doLogin(options);
           // 检查登录是否过期
           wx.checkSession({
             success: function () {
@@ -125,20 +117,14 @@ Page({
             wx.showModal({
               title: '登录提示',
               content: '登录失败，网络状态似乎不太好',
-              confirmText: '重连',
+              showCancel: false,
               success: function (res) {
                 if (res.confirm) {
                   console.log('用户点击确定')
-                  that.doLogin(options);
                   that.setData({
                     showLoading: ''
                   })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                  that.setData({
-                    showLoading: ''
-                  })
-                }
+                } 
               }
             })
           }
@@ -171,5 +157,20 @@ Page({
       }
     });
   },
+  onShareAppMessage: function () {
+    return {
+      title: '回味小程序',
+      desc: '带你寻找记忆中的地方',
+      path: '/pages/index/index?id=123',
+      success: function (res) {
+        console.log(res)
+        // console.log
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
+  }
 })
 

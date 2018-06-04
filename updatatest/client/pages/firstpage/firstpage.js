@@ -3,6 +3,8 @@
 var util = require('../../utils/util.js')
 var wxSearch = require('../../wxSearch/wxSearch.js')
 var QQMapWX = require('../../qqmap-wx-jssdk1.0/qqmap-wx-jssdk.js');
+var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
+var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
 var app = getApp();
 var mkey = new QQMapWX({
   key: '7NBBZ-YF4HK-UONJZ-AVJYJ-5Y5V7-XFFU5'
@@ -22,22 +24,40 @@ Page({
   onLoad: function () {
     console.log('onLoading')
     var that = this
-    // that.getData();
     wxSearch.init(that, 43, ['哈尔滨市', '北京市', '广州市', '上海市', '深圳市']);
     wxSearch.initMindKeys(['哈尔滨市道里区中央大街', '北京市海淀区天安门', '广州市天河区海心沙 ', '上海市南京北路']);
     that.getLocation();
+    that.getGold();
   },
-
-  getData: function () {
-    var feed = util.getQuestions();
-    console.log("getQuestions...");
-    var feed_data = feed.data;
-    this.setData({
-      feed: feed_data,
-      feed_length: feed_data.length
-    });
+  /**
+   * 得到金币数
+   */
+  getGold: function () {
+    var gold = ''
+    var that = this
+    var temp = wx.getStorageSync(SESSION_KEY)
+    console.log('start getGold...')
+    wx.request({
+      url: 'https://wudnq2cw.qcloud.la/weapp/querygold/',
+      data: {
+        skey: temp.skey
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log('getGold success...')
+        console.log(res.data)
+        wx.setStorageSync('gold', res.data.data.msg[0].gold)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
   },
-
   /**
    * 发送城市与经纬换列表信息
    */
@@ -87,9 +107,11 @@ Page({
                   user_info: obj
                 })
                 that.getDistance();
+                util.showSuccess('刷新成功')
               },
               fail: function (res) {
                 console.log("经纬GET失败")
+                util.showSuccess('刷新失败')
               },
               complete: function (res) { },
             })
@@ -113,6 +135,9 @@ Page({
     var sum = 0
     console.log('start getDistance')
     console.log(that.data.firstlist.length)
+    that.setData({
+      distance: []
+    })
     for (var i = 0, len = that.data.firstlist.length; i < len; i++) {
       console.log('ready getDistance...')
       mkey.calculateDistance({
@@ -162,33 +187,35 @@ Page({
    */
   searchRequest: function (e) {
     var searchText = e.data.wxSearchData.value
+    console.log('searchText:' + searchText)
     var obj = []
     var that = this
     console.log('start search...')
-    console.log(searchText)
-    wx.request({
-      url: 'https://wudnq2cw.qcloud.la/weapp/search/',
-      method: 'GET',
-      data: {
-        question: searchText,
-      },
-      success: function (res) {
-        util.showSuccess('成功发送')
-        console.log(res.data)
-        for (var i = 0; i < res.data.data.msg.length; i++) {
-          obj[i] = JSON.parse(res.data.data.msg[i].user_info);
+    if (searchText != '') {
+      wx.request({
+        url: 'https://wudnq2cw.qcloud.la/weapp/search/',
+        method: 'GET',
+        data: {
+          question: searchText,
+        },
+        success: function (res) {
+          util.showSuccess('成功发送')
+          console.log(res.data)
+          for (var i = 0; i < res.data.data.msg.length; i++) {
+            obj[i] = JSON.parse(res.data.data.msg[i].user_info);
+          }
+          that.setData({
+            firstlist: res.data.data.msg,
+            user_info: obj
+          })
+          that.getDistance();
+        },
+        fail: function (res) {
+          util.showBusy('搜索失败')
+          console.log(res)
         }
-        that.setData({
-          firstlist: res.data.data.msg,
-          user_info: obj
-        })
-        that.getDistance();
-      },
-      fail: function (res) {
-        util.showBusy('搜索失败')
-        console.log(res)
-      }
-    })
+      })
+    }
   },
   /**
    * 搜索框
@@ -225,5 +252,22 @@ Page({
   wxSearchTap: function (e) {
     var that = this
     wxSearch.wxSearchHiddenPancel(that);
+  },
+  /**
+   * 分享页面
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '回味小程序',
+      desc: '带你寻找记忆中的地方',
+      path: '/pages/index/index?id=123',
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
   }
 })

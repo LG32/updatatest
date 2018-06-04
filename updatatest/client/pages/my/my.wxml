@@ -1,74 +1,73 @@
 <!--pages/my/my.wxml-->
-<view class='container'>
-  <view class='question-view'>
-    <text class='question-title'>我的信息</text>
-  </view>
-  <view class='master-wrp'>
-    <view class='bg-half'>
-      <view class='master flex-wrp'>
-        <view class='avatar flex-item'>
-          <image src='{{userInfo.avatarUrl}}'></image>
-        </view>
-        <view class='master-info flex-item'>
-          <text class='master-name'>{{userInfo.nickName}}</text>
-          <text class='master-des'>金币数:{{gold}}</text>
-        </view>
-        <view class='follow flex-item' bindtap='qianDao'>
-          <text>+ 签到</text>
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <view class='container'>
+    <view class='question-view'>
+      <text class='question-title'>我的信息</text>
+    </view>
+    <view class='master-wrp'>
+      <view class='bg-half'>
+        <view class='master flex-wrp'>
+          <view class='avatar flex-item'>
+            <image src='{{userInfo.avatarUrl}}'></image>
+          </view>
+          <view class='master-info flex-item'>
+            <text class='master-name'>{{userInfo.nickName}}</text>
+            <text class='master-des'>持有金:{{gold}}</text>
+          </view>
+          <view class='follow flex-item' bindtap='qianDao'>
+            <text>+ 签到</text>
+          </view>
         </view>
       </view>
     </view>
-  </view>
 
-  <view class='master-content'>
-    <text>任务情况</text>
-  </view>
-
-  <view class='feed-item'>
-    <view class='feed-source'>
-      <navigator url="../mission/mission?mission_state=1">
-        <a class=''>
-          <view class='avatar'>
-            <image src='../../images/icon/discovery.png'></image>
-          </view>
-          <text>我发布的任务</text>
-        </a>
-        <view wx:if='{{newMesSum == 0}}' class='item-more'>
-          <image mode="aspectFit" src='../../images/more.png'></image>
-        </view>
-        <view class='item-more message-sum' wx:if='{{newMesSum > 0}}'>
-          <text>{{newMesSum}}</text>
-        </view>
-      </navigator>
-    </view>
-  </view>
-
-  <view class='feed-item'>
-    <view class='feed-source'>
-      <navigator url="../mission/mission?mission_state=2">
-        <a class=''>
-          <view class='avatar'>
-            <image src='../../images/icon/discovery.png'></image>
-          </view>
-          <text>未完成的任务</text>
-        </a>
-        <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
-      </navigator>
-    </view>
-  </view>
-
-  <view class='feed-item'>
-    <view class='feed-source'>
-      <navigator url="../mission/mission?mission_state=3">
-        <a class=''>
-          <view class='avatar'>
-            <image src='../../images/icon/discovery.png'></image>
-          </view>
-          <text>我帮助过的任务</text>
-        </a>
-        <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
-      </navigator>
+    <view class='master-content'>
+      <text>任务情况</text>
     </view>
 
+    <view class='feed-item'>
+      <view class='feed-source'>
+        <navigator url="../mission/mission?mission_state=1">
+          <a class=''>
+            <view class='avatar'>
+              <image src='../../images/icon/discovery.png'></image>
+            </view>
+            <text>我发布的任务</text>
+          </a>
+          <image class='item-more' mode="aspectFit" src='../../images/more.png' wx:if='{{newMesSum == 0}}'></image>
+          <view class='item-more message-sum' wx:if='{{newMesSum > 0}}'>
+            <text>{{newMesSum}}</text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+
+    <view class='feed-item'>
+      <view class='feed-source'>
+        <navigator url="../mission/mission?mission_state=2">
+          <a class=''>
+            <view class='avatar'>
+              <image src='../../images/icon/discovery.png'></image>
+            </view>
+            <text>未完成的任务</text>
+          </a>
+          <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
+        </navigator>
+      </view>
+    </view>
+
+    <view class='feed-item'>
+      <view class='feed-source'>
+        <navigator url="../mission/mission?mission_state=3">
+          <a class=''>
+            <view class='avatar'>
+              <image src='../../images/icon/discovery.png'></image>
+            </view>
+            <text>我帮助过的任务</text>
+          </a>
+          <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
+        </navigator>
+      </view>
+    </view>
   </view>
-</view>
+</scroll-view>

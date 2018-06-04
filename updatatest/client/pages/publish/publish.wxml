@@ -1,4 +1,5 @@
 <!--pages/publish/publish.wxml-->
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 <view class='container'>
   <form bindsubmit='formSubmit'>
     <view class='question'>
@@ -74,3 +75,4 @@
 
   <text class="copyright">tips:准确描述有助于任务更容易地被完成</text>
 </view>
+</scroll-view>

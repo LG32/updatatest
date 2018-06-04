@@ -1,7 +1,7 @@
 /* pages/firstpage/firstpage.wxss */
 @import "/wxSearch/wxSearch.wxss";
 .container{
-  height: 1500rpx;
+  height: 1200rpx;
 }
 .question_title {
   position: relative;

@@ -1,29 +1,32 @@
 // pages/my/my.js
+var util = require('../../utils/util.js')
 var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
 var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
 Page({
   data: {
     userInfo: {},
     skey: '',
-    gold: "100",
+    gold: "0",
     newMesSum: '0',
     myMesSum: '',
     myMission: {},
   },
-
-
   onLoad: function (options) {
     var that = this
     var temp = wx.getStorageSync(SESSION_KEY)
+    var gold = wx.getStorageSync('gold')
     that.setData({
       skey: temp.skey,
       userInfo: temp.userinfo,
+      gold: gold,
     })
     that.getMyMission()
     that.getUnMission()
     that.getFinishedMission()
   },
-
+  /**
+   * 我发布的任务
+   */
   getMyMission: function () {
     var that = this
     wx.request({
@@ -44,16 +47,19 @@ Page({
           myMission: res.data.data.msg
         })
         wx.setStorageSync('myMission', res.data.data.msg)
-        console.log('start getNewMesSum...')
         that.getNewMesSum()
+        // util.showSuccess('刷新成功')
       },
       fail: function (res) {
         console.log('getMyMission fail...')
         console.log(res)
+        // util.showSuccess('刷新失败')
       }
     })
   },
-
+  /**
+   * 未完成的任务
+   */
   getUnMission: function () {
     var that = this
     wx.request({
@@ -78,7 +84,9 @@ Page({
       }
     })
   },
-
+  /**
+   * 我帮助过的任务
+   */
   getFinishedMission: function () {
     var that = this
     wx.request({
@@ -89,7 +97,7 @@ Page({
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      method: 'post',
+      method: 'POST',
       dataType: 'json',
       responseType: 'text',
       success: function (res) {
@@ -103,9 +111,12 @@ Page({
       }
     })
   },
-
+  /**
+   * 是否有新数据
+   */
   getNewMesSum: function () {
     var that = this
+    console.log('start getNewMesSum...')
     that.getMyMesSum()
     var oldMesSum = 0
     oldMesSum = wx.getStorageSync('MESSUM')
@@ -123,20 +134,70 @@ Page({
   getMyMesSum: function () {
     var that = this
     var myMesSum = 0
-    for (var i = 0; i < that.data.myMission.length; i++) {
-      myMesSum = myMesSum + that.data.myMission[i].answerSum
+    console.log('start getMyMesSum...')
+    for (var i = 0; i < that.data.myMission.question.length; i++) {
+      myMesSum = myMesSum + that.data.myMission.question[i].answerSum
     }
     that.setData({
       myMesSum: myMesSum
     })
   },
-
-  qianDao: function(){
-    var myDate = new Date();
-    var nowDate = myDate.getFullYear + myDate.getMonth + myDate.getDay
+  /**
+   * 每日签到
+   */
+  qianDao: function () {
     var that = this
-    var lastDate = wx.getStorageSync('date')
-    console.log('start qianDao...')
-    console.log(nowDate)
-  }
+    wx.request({
+      url: 'https://wudnq2cw.qcloud.la/weapp/sign/',
+      data: {
+        skey: that.data.skey
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log('qian dao success...')
+        console.log(res)
+        util.showSuccess(res.data.data.msg[0].mes)
+        that.setData({
+          gold: res.data.data.msg[0].gold
+        })
+        wx.setStorageSync('gold', that.data.gold)
+      },
+      fail: function (res) {
+        console.log('qian dao fail...')
+        console.log(res)
+        util.showModel('提示', '签到失败');
+      }
+    })
+  },
+  /**
+   * 分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '回味小程序',
+      desc: '带你寻找记忆中的地方',
+      path: '/pages/index/index?id=123',
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    }
+  },
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh: function () {
+    var that = this
+    that.getMyMission()
+    that.getUnMission()
+    that.getFinishedMission()
+    wx.stopPullDownRefresh()
+  },
 })

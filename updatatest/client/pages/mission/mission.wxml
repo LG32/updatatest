@@ -27,7 +27,7 @@
   </view>
 
   <block wx:for="{{mission}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
-   <view class='feed-item'>
+    <view class='feed-item'>
       <view class='feed-source'>
         <a class=''>
           <view class='avatar'>
@@ -35,7 +35,8 @@
           </view>
           <text>{{mission_userInfo[idx].nickName}} 提出任务:{{item.title}}</text>
         </a>
-        <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
+        <image class='item-more' mode="aspectFit" src='../../images/more.png' wx:if='{{item.state == 1}}'></image>
+        <image class='item-more' mode="aspectFit" src='../../images/icon/icon_mission_finish.jpg' wx:if='{{item.state == 0}}'></image>
       </view>
       <view class='feed-content'>
         <navigator url="../answer/answer?question_id={{item.questionID}}">

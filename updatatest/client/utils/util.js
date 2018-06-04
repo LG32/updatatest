@@ -27,13 +27,12 @@ var showBusy = text => wx.showToast({
 var showSuccess = text => wx.showToast({
   title: text,
   icon: 'success',
-  duration: 5000
+  duration: 3000
 })
 
 // 显示失败提示
 var showModel = (title, content) => {
   wx.hideToast();
-
   wx.showModal({
     title,
     content: JSON.stringify(content),

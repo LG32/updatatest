@@ -1,88 +1,119 @@
 <!--pages/answer/answer.wxml-->
-<view class='container'>
-  <block wx:for='{{master_question}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
-    <view class='question-view'>
-      <text class='question-title'>{{item.title}}</text>
-    </view>
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
-    <view class='master-wrp'>
-      <view class='bg-half'>
-        <view class='master flex-wrp'>
-          <view class='avatar flex-item'>
-            <image src='{{master_userInfo.avatarUrl}}'></image>
-          </view>
-          <view class='master-info flex-item'>
-            <text class='master-name'>{{master_userInfo.nickName}}</text>
-            <!-- <text class='master-des'>{{item.simdes}}</text> -->
-          </view>
-          <view class='follow flex-item' bindtap='addGold'>
-            <text>+ 赞</text>
+  <view class='container'>
+    <block wx:for='{{master_question}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
+      <view class='question-view'>
+        <text class='question-title'>{{item.title}}</text>
+      </view>
+
+      <view class='master-wrp'>
+        <view class='bg-half'>
+          <view class='master flex-wrp'>
+            <view class='avatar flex-item'>
+              <image src='{{master_userInfo.avatarUrl}}'></image>
+            </view>
+            <view class='master-info flex-item'>
+              <text class='master-name'>{{master_userInfo.nickName}}</text>
+              <text class='master-des' wx:if='{{power == 1}}'>你为任务发布者</text>
+            </view>
+            <view class='follow flex-item' bindtap='addGold'>
+              <text>+ 赞</text>
+            </view>
           </view>
         </view>
       </view>
-    </view>
 
-    <view class='master-content'>
-      <text>描述：{{item.description}}</text>
-    </view>
-
-    <view class='master-content'>
-      <text>地点：{{item.adress}}</text>
-    </view>
-
-    <view class='master-content'>
-      <text>问题赏金：{{item.questionGold}}</text>
-    </view>
-
-    <view class='openMap'>
-      <button bindtap='openMap' size='mini' class='openMap_btn'>点我查看详细位置</button>
-    </view>
-  </block>
-
-
-  <view class="comments-des-info" style="margin-top:35rpx;">
-    <view class="label-title" style="border-bottom:1px solid #eee;">大家帮助
-      <text style="color:red">（{{comments_answer.length}}）</text>
-    </view>
-
-    <block wx:for='{{comments_answer}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
-      <view class="comments-text" style="margin-top:15rpx;">
-        <view style="width:100rpx;float:left;">
-          <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{comments_userInfo[idx].avatarUrl}}"></image>
-          <text>{{comments_userInfo[idx].nickName}}</text>
+      <view class='master-text'>
+        <view class='master-content'>
+          <text>   描述：{{item.description}}</text>
         </view>
-        <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
-          <view class='comments-pic'>
-            <image class='picture' src='{{item.image_url}}' data-list="{{item.image_url}}" data-src="{{item.image_url}}" bindtap='biggerphoto'></image>
+
+        <view class='master-content'>
+          <text>   地点：{{item.adress}}</text>
+        </view>
+
+        <view class='master-content'>
+          <text>   问题赏金：{{item.questionGold}}</text>
+        </view>
+      </view>
+
+      <view class='openMap'>
+        <button bindtap='openMap' size='mini' class='openMap_btn'>点我查看详细位置</button>
+      </view>
+    </block>
+
+    <block wx:if='{{question_state == 0}}'>
+      <view class="comments-des-info" style="margin-top:35rpx;">
+
+        <view class="label-title" style="border-bottom:3px solid #FFFF6F;">
+          <image class='best-icon' src='../../images/icon/icon_huangguan.jpg'></image>
+          <text>最佳回答</text>
+        </view>
+
+        <view class="comments-text" style="margin-top:15rpx;">
+          <view style="width:100rpx;float:left;">
+            <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{comments_userInfo[best_id].avatarUrl}}"></image>
+            <text>{{comments_userInfo[best_id].nickName}}</text>
           </view>
-          <view>{{item.comments}}</view>
-          <view style="color: #B0B0B0;font-size:24rpx;">{{item.answerTime}} </view>
+          <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
+            <view class='comments-pic' style='border: 2px solid #FFFF6F'>
+              <image mode="aspectFit" class='picture' src='{{comments_answer[best_id].image_url}}' data-list="{{comments_answer[best_id].image_url}}" data-src="{{comments_answer[best_id].image_url}}" bindtap='biggerphoto'></image>
+            </view>
+            <view>{{comments_answer[best_id].comments}}</view>
+            <view style="color: #B0B0B0;font-size:24rpx;">{{comments_answer[best_id].answerTime}} </view>
+          </view>
         </view>
       </view>
     </block>
-  </view>
 
-  <view class='spaceNULL'>
-    <text>没有更多数据</text>
-  </view>
+    <view class="comments-des-info" style="margin-top:35rpx;">
+      <view class="label-title" style="border-bottom:3px solid #eee;border-top:3px solid #FFFF6F">大家帮助
+        <text style="color:red">（{{comments_answer.length}}）</text>
+      </view>
 
-  <view class='master-footer flex-wrp'>
-    <view class="refuet-wrp flex-item">
-      <view class="rejuet flex-wrp flex-tab">
-        <view class='rejuet-btn flex-item' bindtap='backToFirstPage'>
-          <image src='../../images/icon/icon_reject.jpg'></image>
-          <text>残忍拒绝</text>
+      <block wx:for='{{comments_answer}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
+        <view class="comments-text" style="margin-top:15rpx;">
+          <view style="width:100rpx;float:left;">
+            <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{comments_userInfo[idx].avatarUrl}}"></image>
+            <text>{{comments_userInfo[idx].nickName}}</text>
+          </view>
+          <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
+            <view class='comments-pic'>
+              <image mode="aspectFit" class='picture' src='{{item.image_url}}' data-list="{{item.image_url}}" data-src="{{item.image_url}}" bindtap='biggerphoto'></image>
+            </view>
+            <view>{{item.comments}}</view>
+            <view style="color: #B0B0B0;font-size:24rpx;">{{item.answerTime}} </view>
+            <view style='display: flex;align-content: center;margin: 5px' wx:if='{{power == 1 && question_state == 1}}'>
+              <button class='btn-best' size='mini' bindtap='chooseBest' data-id="{{idx}}">采纳为最佳</button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class='spaceNULL'>
+      <text>没有更多数据</text>
+    </view>
+
+    <view class='master-footer flex-wrp'>
+      <view class="refuet-wrp flex-item">
+        <view class="rejuet flex-wrp flex-tab">
+          <view class='rejuet-btn flex-item' bindtap='backToFirstPage'>
+            <image src='../../images/icon/icon_reject.jpg'></image>
+            <text>残忍拒绝</text>
+          </view>
+        </view>
+      </view>
+
+      <view class=' flex-item'>
+        <view class='camera flex-wrp flex-tab'>
+          <view class="camera-btn flex-item" bindtap='goToCamera'>
+            <image src='../../images/icon/icon_camera.png'></image>
+            <text>我帮你拍</text>
+          </view>
         </view>
       </view>
     </view>
-
-    <view class=' flex-item'>
-      <view class='camera flex-wrp flex-tab'>
-        <view class="camera-btn flex-item" bindtap='goToCamera'>
-          <image src='../../images/icon/icon_camera.png'></image>
-          <text>我帮你拍</text>
-        </view>
-      </view>
-    </view>
   </view>
-</view>
+</scroll-view>

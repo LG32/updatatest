@@ -1,6 +1,7 @@
 // pages/publish/publish.js
 var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
 var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
+var util = require('../../utils/util.js')
 
 Page({
   data: {
@@ -14,18 +15,19 @@ Page({
     location: {},
     address: '',
     goldsNumber: '10',
-    goldsNumMin: '0',
-    goldsNumMax: '50',
-    gold: "100",
+    goldsNumMin: '5',
+    goldsNumMax: '25',
+    gold: "",
   },
   onLoad: function () {
     var that = this
     var temp = wx.getStorageSync(SESSION_KEY)
+    var gold = wx.getStorageSync('gold')
     that.setData({
       userInfo: temp.userinfo,
       skey: temp.skey,
+      gold: gold,
     })
-    console.log(wx.getStorageSync(SESSION_KEY))
   },
 
   add_gold: function (e) {
@@ -39,11 +41,7 @@ Page({
     if (that.data.location.address == undefined
       || e.detail.value.title == ''
       || e.detail.value.description == '') {
-      wx.showToast({
-        title: '请完善信息',
-        icon: 'loading',
-        duration: 2000
-      })
+      util.showModel('提示', '请完善信息');  
     }
     else {
       wx.request({
@@ -80,24 +78,16 @@ Page({
                 }, 2000)
               }
             })
+            wx.setStorageSync('gold', res.data.data.msg[0].gold)
           }
           else{
             console.log("任务post失败")
-            wx.showToast({
-              title: '发布失败',
-              icon: 'loading',
-              duration: 2000,
-            })
+            util.showModel('error', '发布失败')            
           }
         },
-
         fail: function (res) {
           console.log("任务post失败")
-          wx.showToast({
-            title: '发布失败',
-            icon: 'loading',
-            duration: 2000,
-          })
+          util.showModel('error', '发布失败')            
         },
         complete: function (res) { },
       })
@@ -121,47 +111,28 @@ Page({
           }
         })
       },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
     })
   },
   numJianTap: function () {
     var that = this
-    if (that.data.goldsNumber > goldsNumMin) {
+    if (that.data.goldsNumber > that.data.goldsNumMin) {
       var tempgolds = that.data.goldsNumber;
       tempgolds--;
       that.setData({
         goldsNumber: tempgolds
       })
     } else
-      wx.showToast({
-        title: '赏金必须',
-        icon: 'loading',
-        duration: 2000
-      })
+      util.showModel('提示', '抠门可不太好哦！')
   },
   numJiaTap: function () {
     var that = this
-
-    if (that.data.goldsNumber < that.data.gold) {
+    if (that.data.goldsNumber < that.data.gold && that.data.goldsNumber < that.data.goldsNumMax) {
       var tempgolds = that.data.goldsNumber;
       tempgolds++;
       that.setData({
         goldsNumber: tempgolds
       })
     } else
-      wx.showToast({
-        title: '金钱不足',
-        icon: 'loading',
-        duration: 2000
-      })
+      util.showModel('提示', '赏金已达最大值！')
   },
-  clearData: function()
-  {
-    
-  }
 })

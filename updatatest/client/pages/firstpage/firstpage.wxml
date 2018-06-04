@@ -5,7 +5,7 @@
   <view class='question_title'>
     <text>搜寻任务</text>
   </view>
-  
+
   <view class='search flex-wrp'>
     <view class='search-left flex-item'>
       <image src="../../images/search.png"></image>
@@ -17,6 +17,10 @@
   </view>
 
   <template is="wxSearch" data="{{wxSearchData}}" />
+
+  <view wx:if='{{firstlist.length == 0}}'>
+    <text style='font-size: 30rpx;color: #666;'>还没有人发在该地点附近的任务</text>
+  </view>
 
   <block wx:for="{{firstlist}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
     <view class='feed-item'>
