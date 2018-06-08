@@ -6,15 +6,17 @@
   background: #f0f4f3;
   color: #000;
 }
+
 .question {
   position: relative;
   width: 655rpx;
   padding: 40rpx 50rpx 30rpx;
-  background: #298de5;
+  background: linear-gradient(#1f8788, #25cb9b);
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
 }
+
 .master {
   position: relative;
   margin: 0 auto;
@@ -26,30 +28,35 @@
   border-radius: 3px;
   box-shadow: 0 1px 2px #bebebe;
 }
+
 .master-wrp {
   position: relative;
   width: 750rpx;
   height: 150rpx;
   background: #fff;
 }
+
 .master-wrp .bg-half {
   position: absolute;
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: #298de5;
+  background: linear-gradient(#25cb9b, #69c3aa);
 }
+
 .master .avatar {
   flex: 1;
   width: 90rpx;
   height: 90rpx;
 }
+
 .master .avatar image {
   display: inline-block;
   width: 90rpx;
   height: 90rpx;
   border-radius: 90rpx;
 }
+
 .master .master-info {
   flex: 5;
   text-align: left;
@@ -111,72 +118,90 @@
   width: 670rpx;
   padding: 20rpx 40rpx;
 }
-.textarea-placeholder{
-  color: #6E6F6E;
+
+.textarea-placeholder {
+  color: #6e6f6e;
   line-height: 20rpx;
 }
-.container .textarea{
-  height: 65rpx;
-  padding: 5rpx  5rpx 5rpx;
-  background:#298de5;
+
+.container .textarea {
+  height: 50rpx;
+  padding: 5rpx 5rpx 5rpx;
+  background: #9be4f0;
 }
-.container .textarea-left{
- 
+
+.container .textarea-left {
   background: #fff;
   text-align: left;
-} 
-.container .textarea-left textarea{
-  display: inline-block;
-  height: 65rpx;
-  font-size: 32rpx;
 }
-.container .destextarea{
+
+.container .textarea-left textarea {
+  display: inline-block;
+  height: 50rpx;
+  font-size: 32rpx;
+  width: 100%
+}
+
+.container .destextarea {
   height: 125rpx;
-  padding: 5rpx  5rpx 5rpx;
-  background:#298de5;
+  padding: 5rpx 5rpx 5rpx;
+  background: #9be4f0;
 }
-.container .destextarea-left{
+
+.container .destextarea-left {
   background: #fff;
   text-align: left;
-} 
-.container .destextarea-left textarea{
+}
+
+.container .destextarea-left textarea {
   display: inline-block;
-  height: 120rpx;
+  height: 100%;
+  width: 100%;
   font-size: 32rpx;
 }
-.container .pointtextarea{
+
+.container .pointtextarea {
   height: 125rpx;
-  padding: 5rpx  5rpx 5rpx;
-  background:#298de5;
+  padding: 5rpx 5rpx 5rpx;
+  background: #9be4f0;
 }
-.container .pointtextarea-left{
+
+.container .pointtextarea-left {
   background: #fff;
   text-align: left;
-} 
-.container .pointtextarea-left textarea{
+}
+
+.container .pointtextarea-left textarea {
   display: inline-block;
-  height: 120rpx;
+  height: 100%;
+  width: 100%;
   font-size: 32rpx;
 }
-.publish_btn{
-  border: 1px solid #298de5; 
-  border-radius: 100rpx;  
+
+.publish_btn {
+  border: 1px solid #298de5;
+  border-radius: 100rpx;
   background-color: white;
 }
-.publish_btn::after{
-  border: none; 
-}
-.distance{
-    margin: 15rpx;
-}
-.distance_btn{
-  border: 2px solid #298de5; 
-  border-radius: 100rpx;  
-  background-color: white;
-}
-.distance_btn::after{
+
+.publish_btn::after {
   border: none;
 }
+
+.distance {
+  margin: 15rpx;
+}
+
+.distance_btn {
+  border: 2px solid #298de5;
+  border-radius: 100rpx;
+  background-color: white;
+}
+
+.distance_btn::after {
+  border: none;
+}
+
 .copyright {
   font-size: 28rpx;
   color: #999;
@@ -187,37 +212,43 @@
   padding: 30rpx;
   text-align: center;
 }
-.golds-num-box{
-   display: flex;
-   justify-content: space-between;
-   padding: 30rpx;
-   border-top: 1px solid #eee;
-   align-items: center;
-   background: #fff;
-   width: 690rpx;
+
+.golds-num-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-top: 1px solid #eee;
+  align-items: center;
+  background: #fff;
+  width: 690rpx;
 }
-.num-label{
-  font-size:26rpx;
-  color:#000000;
+
+.num-label {
+  font-size: 26rpx;
+  color: #000;
 }
-.golds-num-box .num-box{
-     display: flex;
+
+.golds-num-box .num-box {
+  display: flex;
 }
-.golds-num-box .num-box .num-jian,
-.golds-num-box .num-box .num-input,
-.golds-num-box .num-box .num-jia{
+
+.golds-num-box .num-box .num-jian, .golds-num-box .num-box .num-input,
+.golds-num-box .num-box .num-jia {
   width: 80rpx;
   height: 64rpx;
   line-height: 62rpx;
   text-align: center;
   border: 1px solid #eee;
 }
-.golds-num-box .num-box .num-input{
+
+.golds-num-box .num-box .num-input {
   font-size: 28rpx;
 }
-.golds-num-box .num-box .num-input input{
+
+.golds-num-box .num-box .num-input input {
   height: 100%;
 }
-.golds-num-box .num-box .hui{
+
+.golds-num-box .num-box .hui {
   background-color: #f5f5f9;
 }

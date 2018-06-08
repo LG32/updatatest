@@ -9,35 +9,35 @@
     "pages/camera/camera"
   ],
   "window": {
-    "backgroundColor": "#69C3AA",
+    "backgroundColor": "#1f8788",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#69C3AA",
-    "navigationBarTitleText": "去拍照",
+    "navigationBarBackgroundColor": "#1f8788",
+    "navigationBarTitleText": "看哪",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color": "#69C3AA",
-    "selectedColor": "#2A8CE5",
-    "backgroundColor": "#69C3AA",
-    "borderStyle": "white",
+    "backgroundColor": "#8BD3BE",
+    "borderStyle": "black",
+    "color": "#2A8CE5",
+    "selectedColor": "#000",
     "list": [
       {
         "pagePath": "pages/firstpage/firstpage",
-        "test": "首页",
-        "iconPath": "images/icon/index.png",
-        "selectedIconPath": "images/icon/index_focus.png"
+        "iconPath": "images/icon/unsousuo.png",
+        "selectedIconPath": "images/icon/sousuo.png",
+        "text": "搜索"
       },
       {
         "pagePath": "pages/publish/publish",
-        "test": "发布",
-        "iconPath": "images/icon/discovery.png",
-        "selectedIconPath": "images/icon/discovery_focus.png"
+        "iconPath": "images/icon/unbianji.png",
+        "selectedIconPath": "images/icon/bianji.png",     
+        "text": "发布"
       },
       {
         "pagePath": "pages/my/my",
-        "test": "我的",
-        "iconPath": "images/icon/star.png",
-        "selectedIconPath": "images/icon/star2.png"
+        "iconPath": "images/icon/unmy.png",
+        "selectedIconPath": "images/icon/my.png",
+        "text": "我的"
       }
     ]
   },

@@ -131,7 +131,40 @@ Page({
     var that = this
     if (that.data.master_question[0].state == 1) {
       if (that.data.master_userInfo.openId != that.data.openID) {
-        that.firstTime()
+        wx.request({
+          url: 'https://wudnq2cw.qcloud.la/weapp/queryaccept/',
+          method: 'POST',
+          data: {
+            questionID: that.data.questionId,
+            skey: that.data.skey,
+          },
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          success: function (res) {
+            console.log(res.data.data.msg)
+            if (res.data.data.msg == 0) {
+              wx.showModal({
+                title: '提示',
+                content: '是否接下该任务',
+                cancelText: '取消',
+                confirmText: '接下',
+                success: function (res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                    that.acceptask()
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            } else if (res.data.data.msg == 1) {
+              wx.navigateTo({
+                url: '/pages/camera/camera',
+              });
+            }
+          }
+        })
       } else {
         util.showBusy('这任务就是你的')
       }
@@ -141,9 +174,9 @@ Page({
   },
 
   /**
-   * 判断是否已接任务
+   * 接任务
    */
-  firstTime: function () {
+  acceptask: function () {
     var that = this
     wx.request({
       url: 'https://wudnq2cw.qcloud.la/weapp/acceptask/',
@@ -156,36 +189,9 @@ Page({
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
-        console.log('成功接收任务')
-        console.log(res.data)
-        if (res.data.data.msg.res == 0) {
-          wx.showModal({
-            title: '提示',
-            content: '是否接下该任务',
-            cancelText: '取消',
-            confirmText: '接下',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-                wx.navigateTo({
-                  url: '/pages/camera/camera',
-                });
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            },
-            fail: function (res) {
-            }
-          })
-        } else if (res.data.data.msg.res == 1) {
-          wx.navigateTo({
-            url: '/pages/camera/camera',
-          });
-        }
-      },
-      fail: function (res) {
-        console.log(res)
-        util.showModel('提示', '网络访问失败')
+        wx.navigateTo({
+          url: '/pages/camera/camera',
+        });
       }
     })
   },
@@ -258,12 +264,10 @@ Page({
                   [gold]: res.data.data.msg.questionGold
                 })
                 wx.setStorageSync('gold', res.data.data.msg.gold)
-                // util.showSuccess('刷新成功')
               },
               fail: function (res) {
                 console.log('addGold fail...')
                 console.log(res)
-                // util.showSuccess('刷新失败')
               }
             })
             util.showSuccess('替他/她/它感谢你了啦！')
@@ -275,12 +279,12 @@ Page({
     }
   },
   /**
-   * 分享
+   * 分享页面
    */
   onShareAppMessage: function () {
     return {
-      title: '回味小程序',
-      desc: '带你寻找记忆中的地方',
+      title: '看哪小程序',
+      desc: '你想看哪，我帮你',
       path: '/pages/index/index?id=123',
       success: function (res) {
         console.log(res)
@@ -290,5 +294,5 @@ Page({
         console.log(res)
       }
     }
-  }
+  },
 })

@@ -3,13 +3,13 @@
 
 <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <view class='question_title'>
-    <text>搜寻任务</text>
+    <text>{{title_text}}</text>
   </view>
 
   <view class='search flex-wrp'>
     <view class='search-left flex-item'>
       <image src="../../images/search.png"></image>
-      <input name="content" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="搜索任务" placeholder-class="search-placeholder" />
+      <input name="content" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="想看哪？" placeholder-class="search-placeholder" />
     </view>
     <view class='search-right flex-item' bindtap="wxSearchFn">
       <image src='../../images/lighting.png'></image>
@@ -24,17 +24,17 @@
 
   <block wx:for="{{firstlist}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
     <view class='feed-item'>
-      <view class='feed-source'>
-        <a class=''>
-          <view class='avatar'>
-            <image src='{{user_info[idx].avatarUrl}}'></image>
-          </view>
-          <text>{{user_info[idx].nickName}} 提出任务:{{item.title}}</text>
-        </a>
-        <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
-      </view>
-      <view class='feed-content'>
-        <navigator url="../answer/answer?question_id={{item.questionID}}">
+      <navigator url="../answer/answer?question_id={{item.questionID}}">
+        <view class='feed-source'>
+          <a class=''>
+            <view class='avatar'>
+              <image src='{{user_info[idx].avatarUrl}}'></image>
+            </view>
+            <text>{{user_info[idx].nickName}} 提出任务:{{item.title}}</text>
+          </a>
+          <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
+        </view>
+        <view class='feed-content'>
           <view class='question' qid="{{question_id}}">
             <a class='quesiton-link'>
               <text>{{item.description}}</text>
@@ -54,8 +54,8 @@
               </view>
             </view>
           </view>
-        </navigator>
-      </view>
+        </view>
+      </navigator>
     </view>
   </block>
 </scroll-view>

@@ -14,8 +14,13 @@
           </view>
           <view class='master-info flex-item'>
             <text class='master-name'>{{userInfo.nickName}}</text>
-            <text class='master-des'>金币数:{{gold}}</text>
+            <!-- <text class='master-des'>金币数:{{gold}}</text> -->
             <text class='master-des'>数量:{{mission.length}}</text>
+          </view>
+
+          <view class='flex-item' style='display: flex; align-content: center; align-items: center;'>
+            <image src='../../images/icon/money.jpg' style='height: 20px;width: 20px;'></image>
+            <text style='display: inline-block; margin: 0 0 0 20rpx;font-size: 25rpx'>   {{gold}}</text>
           </view>
         </view>
       </view>
@@ -26,6 +31,8 @@
     </view>
   </view>
 
+  <view wx:if='{{mission.length == 0}}' class='tips'>{{tips}}</view>
+
   <block wx:for="{{mission}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
     <view class='feed-item'>
       <view class='feed-source'>
@@ -35,7 +42,10 @@
           </view>
           <text>{{mission_userInfo[idx].nickName}} 提出任务:{{item.title}}</text>
         </a>
-        <image class='item-more' mode="aspectFit" src='../../images/more.png' wx:if='{{item.state == 1}}'></image>
+        <image class='item-more' mode="aspectFit" src='../../images/icon/icon_wait.jpg' wx:if='{{newAnswer[idx] == 0 && item.state == 1}}'></image>
+        <view class='item-more message-sum' wx:if='{{newAnswer[idx] != 0 &&item.state == 1}}'>
+          <text>{{newAnswer[idx]}}</text>
+        </view>
         <image class='item-more' mode="aspectFit" src='../../images/icon/icon_mission_finish.jpg' wx:if='{{item.state == 0}}'></image>
       </view>
       <view class='feed-content'>

@@ -61,9 +61,9 @@
 .container .feed-item .feed-source .avatar image{
   /*position: absolute;*/
   display: inline-block;
-  width: 45rpx;
-  height: 45rpx;
-  border-radius: 45rpx;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 100rpx;
   top: 10rpx;
   vertical-align: middle;
 }
@@ -89,7 +89,7 @@
 .container .feed-item .feed-content .question text{
   font-size: 30rpx;
   font-weight: 600px;
-  line-height: 40rpx;
+  line-height: 50rpx;
   text-space: 5rpx;
 }
 .container .feed-item .feed-content .answer-body{

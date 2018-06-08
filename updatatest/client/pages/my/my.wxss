@@ -8,9 +8,9 @@
 }
 .question-view {
   position: relative;
-  width: 700rpx;
+  width: 655rpx;
   padding: 40rpx 50rpx 30rpx;
-  background: #298de5;
+  background: linear-gradient(#1f8788, #25cb9b);
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -37,7 +37,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: #298de5;
+  background: linear-gradient(#25cb9b, #69c3aa);
 }
 .master .avatar {
   flex: 1;
@@ -68,16 +68,17 @@
   line-height: 28rpx;
 }
 .master .follow {
-  flex: 2;
-  padding: 15rpx 0;
+  flex: 5;
   font-size: 22rpx;
 }
-.master .follow text {
-  display: inline-block;
-  padding: 15rpx 20rpx;
+.master .follow-text {
+  display: block;
+  padding: 5rpx 10rpx;
   color: #40bcd0;
   border: solid 2px #40bcd0;
-  border-radius: 6rpx;
+  border-radius: 15rpx;
+  width: 80rpx;
+  margin: 0 0 0 100rpx;
 }
 .master-content {
   padding: 30rpx 40rpx;

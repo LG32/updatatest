@@ -3,12 +3,13 @@ var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
 var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
 Page({
   data: {
-    mission_title: {
-    },
+    mission_title: {},
     userInfo: {},
     mission_userInfo: {},
     mission: {},
     gold: "0",
+    tips: '',
+    newAnswer: {},
   },
 
   onLoad: function (options) {
@@ -26,14 +27,15 @@ Page({
       var title = '我发布的任务'
       var myMission = wx.getStorageSync('myMission')
       var obj = []
-      console.log('myMission:' + myMission.question.length)
       for (var i = 0; i < myMission.question.length; i++) {
         obj[i] = JSON.parse(myMission.user_info);
       }
+      that.newMessage()
       that.setData({
         mission_title: title,
         mission: myMission.question,
         mission_userInfo: obj,
+        tips: '你还未发过任务。'
       })
     }
     /**
@@ -50,6 +52,7 @@ Page({
         mission_title: title,
         mission: unMission.question,
         mission_userInfo: obj,
+        tips: '没有未完成的任务，赶紧去接任务吧！'
       })
     }
     /**
@@ -66,24 +69,40 @@ Page({
         mission_title: title,
         mission: finishedMission.question,
         mission_userInfo: obj,
+        tips: '尚没有帮助过别人...'
       })
     }
   },
   /**
-   * 分享
+   * 新信息
    */
+  newMessage: function () {
+    var that = this
+    var oldMission = wx.getStorageSync('oldMission')
+    var newMission = wx.getStorageSync('myMission')
+    var newAnswer = []
+    for (var i = 0; i < oldMission.question.length; i++) {
+      newAnswer[i] = newMission.question[i].answerSum - oldMission.question[i].answerSum
+    }
+    that.setData({
+      newAnswer: newAnswer,
+    })
+  },
+  /**
+    * 分享页面
+    */
   onShareAppMessage: function () {
     return {
-      title: '回味小程序',
-      desc: '带你寻找记忆中的地方',
+      title: '看哪小程序',
+      desc: '你想看哪，我帮你',
       path: '/pages/index/index?id=123',
       success: function (res) {
         console.log(res)
       },
       fail: function (res) {
+        // 分享失败
         console.log(res)
       }
     }
   },
-
 })

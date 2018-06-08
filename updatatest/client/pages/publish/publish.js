@@ -5,10 +5,7 @@ var util = require('../../utils/util.js')
 
 Page({
   data: {
-    userInfo: {
-      // avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/8wia9K3Z9baKviaRHibq47d4gZPiakzKYx1ylySrpwfBMmkkiaDJQ68CsmFcVD08NAfib5peVmhDTIQ1ZmeRLUDCs7dg/132",
-      // nickName: "伊利丹",
-    },
+    userInfo: {},
     skey: '',
     publish: {},
     hasLocation: 'false',
@@ -33,7 +30,9 @@ Page({
   add_gold: function (e) {
     console.log(e.userInfo.gold)
   },
-
+  /**
+   * 提交表单
+   */
   formSubmit: function (e) {
     var that = this
     console.log(e.detail.value);
@@ -41,7 +40,7 @@ Page({
     if (that.data.location.address == undefined
       || e.detail.value.title == ''
       || e.detail.value.description == '') {
-      util.showModel('提示', '请完善信息');  
+      util.showModel('提示', '请完善信息');
     }
     else {
       wx.request({
@@ -80,14 +79,14 @@ Page({
             })
             wx.setStorageSync('gold', res.data.data.msg[0].gold)
           }
-          else{
+          else {
             console.log("任务post失败")
-            util.showModel('error', '发布失败')            
+            util.showModel('error', '发布失败')
           }
         },
         fail: function (res) {
           console.log("任务post失败")
-          util.showModel('error', '发布失败')            
+          util.showModel('error', '发布失败')
         },
         complete: function (res) { },
       })
@@ -113,6 +112,9 @@ Page({
       },
     })
   },
+  /**
+   * 减少赏金
+   */
   numJianTap: function () {
     var that = this
     if (that.data.goldsNumber > that.data.goldsNumMin) {
@@ -124,6 +126,9 @@ Page({
     } else
       util.showModel('提示', '抠门可不太好哦！')
   },
+  /**
+   * 增加赏金
+   */
   numJiaTap: function () {
     var that = this
     if (that.data.goldsNumber < that.data.gold && that.data.goldsNumber < that.data.goldsNumMax) {
@@ -135,4 +140,21 @@ Page({
     } else
       util.showModel('提示', '赏金已达最大值！')
   },
+  /**
+   * 分享页面
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '看哪小程序',
+      desc: '你想看哪，我帮你',
+      path: '/pages/index/index?id=123',
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        // 分享失败
+        console.log(res)
+      }
+    }
+  }
 })

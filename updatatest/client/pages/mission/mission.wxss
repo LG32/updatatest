@@ -6,15 +6,17 @@
   background: #f0f4f3;
   color: #000;
 }
+
 .question-view {
   position: relative;
   width: 700rpx;
   padding: 40rpx 50rpx 30rpx;
-  background: #298de5;
+  background: linear-gradient(#1f8788, #25cb9b);
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
 }
+
 .master {
   position: relative;
   margin: 0 auto;
@@ -39,7 +41,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: #298de5;
+  background: linear-gradient(#25cb9b, #69c3aa);
 }
 
 .master .avatar {
@@ -115,4 +117,24 @@
   background: #fff;
   width: 670rpx;
   padding: 20rpx 40rpx;
+}
+
+.tips {
+  position: flexd;
+  text-align: center;
+  font-size: 32rpx;
+  background-color: #fff;
+  border-top: solid 2px;
+}
+
+.message-sum {
+  background-color: #ff2e2e;
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 100%;
+}
+
+.message-sum text {
+  font-size: 14;
+  color: white;
 }

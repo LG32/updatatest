@@ -9,7 +9,7 @@
   position: relative;
   width: 700rpx;
   padding: 40rpx 50rpx 30rpx;
-  background: #298de5;
+  background: linear-gradient(#1f8788, #25cb9b);
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;

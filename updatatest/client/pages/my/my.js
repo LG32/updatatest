@@ -10,6 +10,8 @@ Page({
     newMesSum: '0',
     myMesSum: '',
     myMission: {},
+    oldMission: {},
+    sex: '',
   },
   onLoad: function (options) {
     var that = this
@@ -23,12 +25,14 @@ Page({
     that.getMyMission()
     that.getUnMission()
     that.getFinishedMission()
+    that.sexIs()
   },
   /**
    * 我发布的任务
    */
   getMyMission: function () {
     var that = this
+    var oldMission = wx.getStorageSync('myMission')
     wx.request({
       url: 'https://wudnq2cw.qcloud.la/weapp/myrelease/',
       data: {
@@ -44,11 +48,12 @@ Page({
         console.log('getMyMission success...')
         console.log(res.data.data.msg)
         that.setData({
-          myMission: res.data.data.msg
+          myMission: res.data.data.msg,
+          oldMission: oldMission
         })
         wx.setStorageSync('myMission', res.data.data.msg)
+        wx.setStorageSync("oldMission", that.data.oldMission)
         that.getNewMesSum()
-        // util.showSuccess('刷新成功')
       },
       fail: function (res) {
         console.log('getMyMission fail...')
@@ -175,17 +180,18 @@ Page({
     })
   },
   /**
-   * 分享
-   */
+    * 分享页面
+    */
   onShareAppMessage: function () {
     return {
-      title: '回味小程序',
-      desc: '带你寻找记忆中的地方',
+      title: '看哪小程序',
+      desc: '你想看哪，我帮你',
       path: '/pages/index/index?id=123',
       success: function (res) {
         console.log(res)
       },
       fail: function (res) {
+        // 分享失败
         console.log(res)
       }
     }
@@ -199,5 +205,21 @@ Page({
     that.getUnMission()
     that.getFinishedMission()
     wx.stopPullDownRefresh()
+  },
+  /**
+ * 判断性别
+ */
+  sexIs: function () {
+    var that = this
+    var sex = ''
+    if (that.data.userInfo.gender == 1) {
+      sex = 'Gentleman'
+    }
+    if (that.data.userInfo.gender == 2) {
+      sex = 'Madam'
+    }
+    that.setData({
+      sex: sex
+    })
   },
 })

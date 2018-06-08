@@ -16,6 +16,7 @@ Page({
     distance: [],
     latitude: '',
     longitude: '',
+    title_text: '',
   },
 
   /**
@@ -104,9 +105,11 @@ Page({
                 console.log("经纬GET成功")
                 that.setData({
                   firstlist: res.data.data.msg,
-                  user_info: obj
+                  user_info: obj,
+                  title_text: '别人想看',
                 })
                 that.getDistance();
+                that.simpleDescription();
                 util.showSuccess('刷新成功')
               },
               fail: function (res) {
@@ -206,7 +209,8 @@ Page({
           }
           that.setData({
             firstlist: res.data.data.msg,
-            user_info: obj
+            user_info: obj,
+            title_text: '我想看',
           })
           that.getDistance();
         },
@@ -216,6 +220,25 @@ Page({
         }
       })
     }
+  },
+  /**
+   * 简要化描述
+   */
+  simpleDescription: function()
+  {
+     var that = this
+     for(var i = 0; i <that.data.firstlist.length; i++)
+     {
+       if (that.data.firstlist[i].description.length > 60){
+         var tempStr = that.data.firstlist[i].description.substr(0,60)
+         var str = tempStr + '......'
+         console.log(str)
+         var newStr = "firstlist[" + i + "].description"
+         that.setData({
+           [newStr]: str
+         })
+       }
+     }
   },
   /**
    * 搜索框
@@ -258,8 +281,8 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '回味小程序',
-      desc: '带你寻找记忆中的地方',
+      title: '看哪小程序',
+      desc: '你想看哪，我帮你',
       path: '/pages/index/index?id=123',
       success: function (res) {
         console.log(res)

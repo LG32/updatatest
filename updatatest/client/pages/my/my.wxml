@@ -12,10 +12,14 @@
           </view>
           <view class='master-info flex-item'>
             <text class='master-name'>{{userInfo.nickName}}</text>
-            <text class='master-des'>持有金:{{gold}}</text>
+            <text class='master-des' style='display: inline-block;'>{{sex}}</text>
           </view>
           <view class='follow flex-item' bindtap='qianDao'>
-            <text>+ 签到</text>
+            <text class='follow-text'>+ 签到</text>
+            <view>
+              <image src='../../images/icon/money.jpg' style='height: 20px;width: 20px;'></image>
+              <text style='display: inline-block; margin: 0 0 0 20rpx;'>   {{gold}}</text>
+            </view>
           </view>
         </view>
       </view>
@@ -25,14 +29,14 @@
       <text>任务情况</text>
     </view>
 
-    <view class='feed-item'>
+    <view class='feed-item' style='height: 60rpx;'>
       <view class='feed-source'>
-        <navigator url="../mission/mission?mission_state=1">
+        <navigator url="../mission/mission?mission_state=1" style='height:60rpx;'>
           <a class=''>
             <view class='avatar'>
-              <image src='../../images/icon/discovery.png'></image>
+              <image src='../../images/icon/my_fabu.jpg' style='width: 55rpx;height: 55rpx;'></image>
             </view>
-            <text>我发布的任务</text>
+            <text style='font-size: 30rpx'>我发布的任务</text>
           </a>
           <image class='item-more' mode="aspectFit" src='../../images/more.png' wx:if='{{newMesSum == 0}}'></image>
           <view class='item-more message-sum' wx:if='{{newMesSum > 0}}'>
@@ -42,28 +46,28 @@
       </view>
     </view>
 
-    <view class='feed-item'>
+    <view class='feed-item' style='height: 60rpx;'>
       <view class='feed-source'>
-        <navigator url="../mission/mission?mission_state=2">
+        <navigator url="../mission/mission?mission_state=2" style='height:60rpx;'>
           <a class=''>
             <view class='avatar'>
-              <image src='../../images/icon/discovery.png'></image>
+              <image src='../../images/icon/my_weiwancheng.jpg' style='width: 55rpx;height: 55rpx;'></image>
             </view>
-            <text>未完成的任务</text>
+            <text style='font-size: 30rpx'>未完成的任务</text>
           </a>
           <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
         </navigator>
       </view>
     </view>
 
-    <view class='feed-item'>
+    <view class='feed-item' style='height: 60rpx;'>
       <view class='feed-source'>
-        <navigator url="../mission/mission?mission_state=3">
+        <navigator url="../mission/mission?mission_state=3" style='height:60rpx;'>
           <a class=''>
             <view class='avatar'>
-              <image src='../../images/icon/discovery.png'></image>
+              <image src='../../images/icon/my_bangzhu.jpg' style='width: 55rpx;height: 55rpx;'></image>
             </view>
-            <text>我帮助过的任务</text>
+            <text style='font-size: 30rpx'>我帮助过的任务</text>
           </a>
           <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
         </navigator>

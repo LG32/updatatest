@@ -135,10 +135,6 @@ Page({
       },
     });
   },
-
-  onShow: function () {
-
-  },
   onReady: function () {
     var that = this;
     setTimeout(function () {
@@ -157,14 +153,16 @@ Page({
       }
     });
   },
+  /**
+  * 分享页面
+  */
   onShareAppMessage: function () {
     return {
-      title: '回味小程序',
-      desc: '带你寻找记忆中的地方',
+      title: '看哪小程序',
+      desc: '你想看哪，我帮你',
       path: '/pages/index/index?id=123',
       success: function (res) {
         console.log(res)
-        // console.log
       },
       fail: function (res) {
         // 分享失败

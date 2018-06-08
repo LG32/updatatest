@@ -4,7 +4,7 @@
     <image class="remind-img" src="/images/more/loading.gif"></image>
   </view>
   <block wx:else>
-    <image class="title" src="/images/more/huiwei.jpg"></image>
+    <image class="title" src="/images/more/huiwei.png"></image>
     <view class="content">
       <view class="hd" style="transform:rotateZ({{angle}}deg);">
         <image class="logo" src="{{userInfo.avatarUrl}}"></image>
@@ -14,7 +14,7 @@
       <view class="bd">
         <image class="smalltitle" src="/images/more/titledes.png"></image>
         <view class="confirm-btn">
-          <button wx:if="{{canIUse}} " open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='button'>同意授权登录</button>
+          <button wx:if="{{canIUse}} " open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='button' >同意授权登录</button>
           <view wx:else>请升级微信版本</view>
           <!-- <text bindtap='getLocation'>开始任务</text>  -->
         </view>
