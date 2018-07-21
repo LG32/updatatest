@@ -10,6 +10,7 @@ Page({
     gold: "0",
     tips: '',
     newAnswer: {},
+    mission_state: {},
   },
 
   onLoad: function (options) {
@@ -18,7 +19,8 @@ Page({
     var gold = wx.getStorageSync('gold')
     that.setData({
       userInfo: temp.userinfo,
-      gold: gold
+      gold: gold,
+      mission_state: options.mission_state,
     })
     /**
      * 我发布的任务
@@ -81,12 +83,20 @@ Page({
     var oldMission = wx.getStorageSync('oldMission')
     var newMission = wx.getStorageSync('myMission')
     var newAnswer = []
-    for (var i = 0; i < oldMission.question.length; i++) {
-      newAnswer[i] = newMission.question[i].answerSum - oldMission.question[i].answerSum
+    console.log(oldMission)
+    if (oldMission == '') {
+      for (var i = 0; i < newMission.question.length; i++) {
+        newAnswer[i] = newMission.question[i].answerSum - 0
+      }
+    } else {
+      for (var i = 0; i < newMission.question.length; i++) {
+        newAnswer[i] = newMission.question[i].answerSum - oldMission.question[i].answerSum
+      }
     }
     that.setData({
       newAnswer: newAnswer,
     })
+    wx.setStorageSync('oldMission', newMission)
   },
   /**
     * 分享页面
@@ -95,7 +105,7 @@ Page({
     return {
       title: '看哪小程序',
       desc: '你想看哪，我帮你',
-      path: '/pages/index/index?id=123',
+      path: '/pages/start/start?id=123',
       success: function (res) {
         console.log(res)
       },

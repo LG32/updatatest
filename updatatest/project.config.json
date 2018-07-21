@@ -13,7 +13,7 @@
 	"appid": "wx1b6b9c333de1197d",
 	"projectname": "updatatest",
 	"compileType": "miniprogram",
-	"libVersion": "2.0.8",
+	"libVersion": "2.0.9",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

@@ -179,13 +179,17 @@
 }
 
 .publish_btn {
-  border: 1px solid #298de5;
+  border: 1px solid #000;
   border-radius: 100rpx;
-  background-color: white;
+  background-color: #9be4f0;
 }
 
 .publish_btn::after {
   border: none;
+}
+
+.publish_btn:active{
+    opacity: 0.8;
 }
 
 .distance {
@@ -205,12 +209,10 @@
 .copyright {
   font-size: 28rpx;
   color: #999;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: 30rpx;
   text-align: center;
+  background-color: #fff;
+  width: 100%;
 }
 
 .golds-num-box {

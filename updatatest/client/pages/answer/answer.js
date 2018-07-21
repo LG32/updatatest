@@ -64,6 +64,7 @@ Page({
           best_id: best_id,
           power: power,
         });
+        that.timeFormat()
       }
     })
   },
@@ -279,13 +280,29 @@ Page({
     }
   },
   /**
+   * 时间格式
+   */
+  timeFormat: function () {
+    var that = this
+    var tempTime = ''
+    console.log('start timeformat...')
+    for (var i = 0; i < that.data.comments_answer.length; i++) {
+      var tempDate = "comments_answer[" + i + "].answerTime"
+      tempTime = that.data.comments_answer[i].answerTime.substr(0, 10)
+      console.log(tempTime)
+      that.setData({
+        [tempDate]: tempTime
+      })
+    }
+  },
+  /**
    * 分享页面
    */
   onShareAppMessage: function () {
     return {
       title: '看哪小程序',
       desc: '你想看哪，我帮你',
-      path: '/pages/index/index?id=123',
+      path: '/pages/start/start?id=123',
       success: function (res) {
         console.log(res)
       },

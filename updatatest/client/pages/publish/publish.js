@@ -11,9 +11,9 @@ Page({
     hasLocation: 'false',
     location: {},
     address: '',
-    goldsNumber: '10',
-    goldsNumMin: '5',
-    goldsNumMax: '25',
+    goldsNumber: 10,
+    goldsNumMin: 5,
+    goldsNumMax: 25,
     gold: "",
   },
   onLoad: function () {
@@ -35,61 +35,69 @@ Page({
    */
   formSubmit: function (e) {
     var that = this
-    console.log(e.detail.value);
-    console.log(that.data.location.address);
     if (that.data.location.address == undefined
       || e.detail.value.title == ''
       || e.detail.value.description == '') {
       util.showModel('提示', '请完善信息');
     }
     else {
-      wx.request({
-        url: 'https://wudnq2cw.qcloud.la/weapp/task/',
-        data: {
-          skey: that.data.skey,
-          title: e.detail.value.title,
-          description: e.detail.value.description,
-          adress: that.data.location.address,
-          latitude: that.data.location.latitude,
-          longitude: that.data.location.longitude,
-          gold: that.data.goldsNumber,
-        },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        method: 'post',
-        dataType: 'json',
-        responseType: 'text',
-
+      wx.showModal({
+        title: '提示',
+        content: '是否发布任务',
         success: function (res) {
-          if (res.data.code == '0') {
-            console.log("任务post成功")
-            console.log(res.data)
-            wx.showToast({
-              title: '发布成功',
-              icon: 'success',
-              duration: 2000,
-              complete: function () {
-                setTimeout(function () {
-                  wx.reLaunch({
-                    url: '/pages/my/my'
+          if (res.confirm) {
+            wx.request({
+              url: 'https://wudnq2cw.qcloud.la/weapp/task/',
+              data: {
+                skey: that.data.skey,
+                title: e.detail.value.title,
+                description: e.detail.value.description,
+                adress: that.data.location.address,
+                latitude: that.data.location.latitude,
+                longitude: that.data.location.longitude,
+                gold: that.data.goldsNumber,
+              },
+              header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              method: 'post',
+              dataType: 'json',
+              responseType: 'text',
+
+              success: function (res) {
+                if (res.data.code == '0') {
+                  console.log("任务post成功")
+                  console.log(res.data)
+                  wx.showToast({
+                    title: '发布成功',
+                    icon: 'success',
+                    duration: 2000,
+                    complete: function () {
+                      setTimeout(function () {
+                        wx.reLaunch({
+                          url: '/pages/my/my'
+                        })
+                      }, 2000)
+                    }
                   })
-                }, 2000)
-              }
+                  wx.setStorageSync('gold', res.data.data.msg[0].gold)
+                }
+                else {
+                  console.log("任务post失败")
+                  util.showModel('error', '发布失败')
+                }
+              },
+              fail: function (res) {
+                console.log("任务post失败")
+                util.showModel('error', '发布失败')
+              },
+              complete: function (res) { },
             })
-            wx.setStorageSync('gold', res.data.data.msg[0].gold)
+          } else if (res.cancel) {
           }
-          else {
-            console.log("任务post失败")
-            util.showModel('error', '发布失败')
-          }
-        },
-        fail: function (res) {
-          console.log("任务post失败")
-          util.showModel('error', '发布失败')
-        },
-        complete: function (res) { },
+        }
       })
+
     }
   },
   /**
@@ -147,12 +155,11 @@ Page({
     return {
       title: '看哪小程序',
       desc: '你想看哪，我帮你',
-      path: '/pages/index/index?id=123',
+      path: '/pages/start/start?id=123',
       success: function (res) {
         console.log(res)
       },
       fail: function (res) {
-        // 分享失败
         console.log(res)
       }
     }

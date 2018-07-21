@@ -81,7 +81,7 @@ Page({
             longitude: that.data.longitude
           },
           success: function (res) {
-            console.log('https://wudnq2cw.qcloud.la/weapp/firstpage/?city=' + res.result.address_component.city + '&latitude=' + that.data.latitude + '&longitude=' + that.data.longitude)
+            var city = res.result.address_component.city
             wx.request({
               url: 'https://wudnq2cw.qcloud.la/weapp/firstpage/',
               data: {
@@ -106,7 +106,7 @@ Page({
                 that.setData({
                   firstlist: res.data.data.msg,
                   user_info: obj,
-                  title_text: '别人想看',
+                  title_text: city,
                 })
                 that.getDistance();
                 that.simpleDescription();
@@ -283,7 +283,7 @@ Page({
     return {
       title: '看哪小程序',
       desc: '你想看哪，我帮你',
-      path: '/pages/index/index?id=123',
+      path: '/pages/start/start?id=123',
       success: function (res) {
         console.log(res)
       },

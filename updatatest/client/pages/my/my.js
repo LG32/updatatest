@@ -32,7 +32,7 @@ Page({
    */
   getMyMission: function () {
     var that = this
-    var oldMission = wx.getStorageSync('myMission')
+    var oldMission = wx.getStorageSync('oldMission')
     wx.request({
       url: 'https://wudnq2cw.qcloud.la/weapp/myrelease/',
       data: {
@@ -186,7 +186,7 @@ Page({
     return {
       title: '看哪小程序',
       desc: '你想看哪，我帮你',
-      path: '/pages/index/index?id=123',
+      path: '/pages/start/start?id=123',
       success: function (res) {
         console.log(res)
       },
