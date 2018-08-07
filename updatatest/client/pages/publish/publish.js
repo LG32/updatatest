@@ -35,6 +35,8 @@ Page({
    */
   formSubmit: function (e) {
     var that = this
+    console.log('start formSubmit')
+    console.log(e)
     if (that.data.location.address == undefined
       || e.detail.value.title == ''
       || e.detail.value.description == '') {
@@ -47,7 +49,7 @@ Page({
         success: function (res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://wudnq2cw.qcloud.la/weapp/task/',
+              url: 'https://800321007.littlemonster.xyz/weapp/task/',
               data: {
                 skey: that.data.skey,
                 title: e.detail.value.title,
@@ -97,14 +99,12 @@ Page({
           }
         }
       })
-
     }
   },
   /**
    * 打开腾讯位置
    */
   chooseLocation: function (e) {
-    console.log(e)
     var that = this
     wx.chooseLocation({
       success: function (res) {

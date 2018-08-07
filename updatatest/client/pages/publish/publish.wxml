@@ -26,7 +26,7 @@
       </view>
 
 
-      <view class='feed-item'>
+      <view class='feed-item' style='padding: 30rpx 30rpx 20rpx 30rpx'>
         <view class='feed-source'>
           <text>题目</text>
           <view class='textarea flex-wrp'>
@@ -37,7 +37,7 @@
         </view>
       </view>
 
-      <view class='feed-item'>
+      <view class='feed-item' style='padding: 30rpx 30rpx 20rpx 30rpx'>
         <view class='feed-source'>
           <text>描述</text>
           <view class='destextarea flex-wrp'>
@@ -48,16 +48,19 @@
         </view>
       </view>
 
-      <view class='feed-item'>
+      <view class='feed-item' style='padding: 30rpx 30rpx 20rpx 30rpx'>
         <view class='feed-source'>
           <text>地点</text>
           <view class='pointtextarea flex-wrp'>
             <view class='pointtextarea-left flex-item' bindtap='chooseLocation'>
-              <textarea disabled='false' wx:if="{{hasLocation != true}}">点击选择地点</textarea>
-              <textarea disabled='false' wx:if="{{hasLocation == true}}">{{location.address}}</textarea>
+              <textarea disabled='false' wx:if="{{hasLocation != true}}" style='color: #808080'>点击按钮选择地点</textarea>
+              <textarea disabled='false' wx:if="{{hasLocation == true}}" style='color: #000' value="{{address}}">{{location.address}}</textarea>
             </view>
           </view>
         </view>
+        <view class='openMap'>
+        <button bindtap='chooseLocation' size='mini' class='openMap_btn'>点我选择地点</button>
+      </view>
       </view>
     </form>
 

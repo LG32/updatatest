@@ -44,23 +44,40 @@
     </block>
 
     <block wx:if='{{question_state == 0}}'>
-      <view class="comments-des-info" style="margin-top:35rpx;">
+      <view class="comments-des-info" style="width: 97%">
 
-        <view class="label-title" style="border-bottom:3px solid #FFFF6F;">
-          <image class='best-icon' src='../../images/icon/icon_huangguan.jpg'></image>
-          <text>最佳回答</text>
+
+        <view style="background-color: #f0f4f3">
+          <image style='width: 100%;height: 80rpx' src='../../images/more/goodanswer1.png'>
+          </image>
         </view>
 
-        <view class="comments-text" style="margin-top:15rpx;">
-          <view style="width:100rpx;float:left;">
-            <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{comments_userInfo[best_id].avatarUrl}}"></image>
-            <text>{{comments_userInfo[best_id].nickName}}</text>
-          </view>
-          <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
-            <view class='comments-pic' style='border: 2px solid #FFFF6F'>
-              <image mode="aspectFit" class='picture' src='{{comments_answer[best_id].image_url}}' data-list="{{comments_answer[best_id].image_url}}" data-src="{{comments_answer[best_id].image_url}}" bindtap='biggerphoto'></image>
+        <view class="comments-text" style="height: 560rpx;">
+
+          <view style="width:100%;float:left;border-bottom:1px solid #eee;  display: flex;align-items: center;justify-content: center;">
+            <view class='comments-pic' style='width: 700rpx;border: 1px solid #fff;'>
+              <image mode="aspectFill" class='picture' src='{{comments_answer[best_id].image_url}}' data-list="{{comments_answer[best_id].image_url}}" data-src="{{comments_answer[best_id].image_url}}" bindtap='biggerphoto' style='width: 700rpx'></image>
             </view>
-            <view>{{comments_answer[best_id].comments}}</view>
+          </view>
+        </view>
+        <view style='display: flex;align-items: center;justify-content: center;height: 100px'>
+          <view style="width:50%;float:left;height:80px;padding: 35rpx">
+            <view style='float:left'>
+              <image class='avatar' style="width: 60px; height: 60px;" src="{{comments_userInfo[best_id].avatarUrl}}"></image>
+            </view>
+            <view style='float: right; padding: 15rpx 0rpx 0rpx 10rpx'>
+              <view class="label-text">
+                <image class='best-icon' src='../../images/icon/icon_huangguan.jpg'></image>
+                <text>最佳回答：</text>
+              </view>
+              <view class='label-text'>
+                <text>{{comments_userInfo[best_id].nickName}}</text>
+              </view>
+            </view>
+
+          </view>
+          <view style="width:50%;float: right;">
+            <view style='font-size: 28rpx'>{{comments_answer[best_id].comments}}</view>
             <view style="color: #B0B0B0;font-size:24rpx;">{{comments_answer[best_id].answerTime}} </view>
           </view>
         </view>
@@ -68,7 +85,7 @@
     </block>
 
     <view class="comments-des-info" style="margin-top:35rpx;">
-      <view class="label-title" style="border-bottom:3px solid #eee;border-top:3px solid #FFFF6F">大家帮助
+      <view class="label-title" style="border-bottom:3px solid #eee;border-top:3px solid #eee">大家帮助
         <text style="color:red">（{{comments_answer.length}}）</text>
       </view>
 
@@ -100,7 +117,7 @@
       <view class="refuet-wrp flex-item">
         <view class="rejuet flex-wrp flex-tab">
           <view class='rejuet-btn flex-item' bindtap='backToFirstPage'>
-            <image src='../../images/icon/icon_reject.jpg'></image>
+            <image src='../../images/icon/icon_reject.png'></image>
             <text>残忍拒绝</text>
           </view>
         </view>

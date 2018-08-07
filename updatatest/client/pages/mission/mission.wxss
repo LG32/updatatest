@@ -9,9 +9,9 @@
 
 .question-view {
   position: relative;
-  width: 700rpx;
-  padding: 40rpx 50rpx 30rpx;
-  background: linear-gradient(#1f8788, #25cb9b);
+  width: 100%;
+  padding: 40rpx 0rpx 30rpx 60rpx;
+  background: #1f8788;
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -41,7 +41,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: linear-gradient(#25cb9b, #69c3aa);
+  background: #1f8788;
 }
 
 .master .avatar {

@@ -8,9 +8,9 @@
 }
 .question-view {
   position: relative;
-  width: 655rpx;
-  padding: 40rpx 50rpx 30rpx;
-  background: linear-gradient(#1f8788, #25cb9b);
+  width: 100%;
+  padding: 40rpx 0rpx 30rpx 60rpx;
+  background: #1f8788;
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -37,7 +37,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: linear-gradient(#25cb9b, #69c3aa);
+  background: #1f8788;
 }
 .master .avatar {
   flex: 1;
@@ -81,13 +81,14 @@
   margin: 0 0 0 100rpx;
 }
 .master-content {
-  padding: 30rpx 40rpx;
+  padding: 30rpx 0rpx 40rpx 50rpx;
   width: 100%;
   background: #fff;
 }
 .master-content text {
-  font-size: 32rpx;
-  color: #454545;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #000;
   line-height: 44rpx;
 }
 .master-content image {
@@ -111,5 +112,10 @@
 }
 .message-sum text{
   font-size: 14;
+  color: white;
+}
+.sign_btn {
+  border-radius: 25rpx;
+  background-color: #1f8788;
   color: white;
 }

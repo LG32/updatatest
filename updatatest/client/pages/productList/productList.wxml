@@ -1,0 +1,31 @@
+<view class="product-list">
+  <!--条件选择-->
+  <view class="choice-bar">
+    <view bindtap="choiceItem" data-item="1" class="chioce-item chioce-item-first" hover-class="click-once-opaque">{{activeDistrictName}}
+      <image class="icon-chioce" src="{{districtChioceIcon}}"></image>
+    </view>
+
+    <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">{{activeSortingName}}
+      <image class="icon-chioce" src="{{sortingChioceIcon}}"></image>
+    </view>
+
+    <!-- 热门区域 -->
+    <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show'}}">
+      <!-- 父菜单 -->
+      <view class="district-left">
+        <view wx:for="{{districtList}}" catchtap="selectDistrictParent" data-index="{{index}}" class="district-parent{{index==activeDistrictParentIndex||index==0&&activeDistrictParentIndex==-1?' district-parent-active':''}}" hover-class="click-once">{{item.district_name}}</view>
+      </view>
+      <!-- 子菜单 -->
+      <view class="district-right">
+        <scroll-view scroll-y class="scroll-district" scroll-top="{{scrollTop}}">
+          <view id="{{index}}" wx:for="{{children_list[activeDistrictParentIndex].list}}" catchtap="selectDistrictChildren" class="district-children" hover-class="click-once" data-index="{{index}}">{{children_list[activeDistrictParentIndex].list[index].district_name}}</view>
+        </scroll-view>
+      </view>
+    </view>
+
+
+    <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
+      <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>
+    </view>
+  </view>
+</view>

@@ -13,30 +13,30 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1f8788",
     "navigationBarTitleText": "看哪",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "backgroundColor": "#8BD3BE",
+    "backgroundColor": "#1f8788",
     "borderStyle": "black",
     "color": "#fff",
     "selectedColor": "#000",
     "list": [
       {
         "pagePath": "pages/firstpage/firstpage",
-        "iconPath": "images/icon/unsousuo.png",
-        "selectedIconPath": "images/icon/sousuo.png",
+        "iconPath": "images/icon/unsousuo2.png",
+        "selectedIconPath": "images/icon/sousuo2.png",
         "text": "搜索"
       },
       {
         "pagePath": "pages/publish/publish",
-        "iconPath": "images/icon/unbianji.png",
-        "selectedIconPath": "images/icon/bianji.png",     
+        "iconPath": "images/icon/unbianji2.png",
+        "selectedIconPath": "images/icon/bianji2.png",
         "text": "发布"
       },
       {
         "pagePath": "pages/my/my",
-        "iconPath": "images/icon/unmy.png",
-        "selectedIconPath": "images/icon/my.png",
+        "iconPath": "images/icon/unmy2.png",
+        "selectedIconPath": "images/icon/my2.png",
         "text": "我的"
       }
     ]

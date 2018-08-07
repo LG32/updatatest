@@ -39,7 +39,7 @@
 }
 .container .feed-item{
   width: 690rpx;
-  padding: 30rpx 30rpx 20rpx;
+  padding: 30rpx 30rpx 20rpx 30rpx;
   margin: 7rpx 0 6rpx 0;
   background: #ffffff;
   border-top: 1px solid #eee;
@@ -74,7 +74,7 @@
   line-height: 40rpx;
   vertical-align: middle;
   margin: 0 0 0 15rpx;
-  color: #a0acac;
+  color: #000;
   font-size: 26rpx;
 }
 .container .feed-item .feed-source .item-more{

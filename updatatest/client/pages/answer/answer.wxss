@@ -9,9 +9,9 @@
 
 .question-view {
   position: relative;
-  width: 700rpx;
-  padding: 40rpx 50rpx 30rpx;
-  background: linear-gradient(#1f8788, #25cb9b);
+  width: 100%;
+  padding: 40rpx 0rpx 30rpx 60rpx;
+  background: #1f8788;
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -45,7 +45,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: linear-gradient(#25cb9b, #69c3aa);
+  background: #1f8788;
 }
 
 .master .avatar {
@@ -158,8 +158,8 @@
 .master-footer .rejuet image {
   display: block;
   margin: 0 auto;
-  width: 65rpx;
-  height: 65rpx;
+  width: 70rpx;
+  height: 70rpx;
 }
 
 .master-footer .rejuet-btn {
@@ -174,7 +174,7 @@
 }
 
 .comments-des-info {
-  width: 100%;
+  width: 97%;
   box-sizing: border-box;
   background-color: #fff;
   margin-top: 0rpx !important;
@@ -186,16 +186,21 @@
   padding: 30rpx;
 }
 
+.label-text {
+  font-size: 28rpx;
+  color: #000;
+}
+
 .comments-text {
   padding: 0 10rpx;
   font-size: 28rpx;
   color: #666;
   line-height: 56rpx;
-  margin-bottom: 30rpx;
+  height: 560rpx;
 }
 
 .comments-pic {
-  width: 590rpx;
+  width: 560rpx;
   height: 500rpx;
   margin: 20rpx 0;
   border: 1px solid #d0d0d0;
@@ -227,9 +232,9 @@
 }
 
 .spaceNULL {
-  height: 120rpx;
+  height: 160rpx;
   width: 100%;
-  font-size: 26rpx;
+  font-size: 30rpx;
   margin: 0 auto;
   text-align: center;
 }

@@ -4,16 +4,16 @@
 	"miniprogramRoot": "./client",
 	"qcloudRoot": "./server",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"appid": "wx1b6b9c333de1197d",
-	"projectname": "updatatest",
+	"projectname": "%E7%9C%8B%E5%93%AA",
 	"compileType": "miniprogram",
-	"libVersion": "2.0.9",
+	"libVersion": "2.2.2",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

@@ -9,9 +9,9 @@
 
 .question {
   position: relative;
-  width: 655rpx;
-  padding: 40rpx 50rpx 30rpx;
-  background: linear-gradient(#1f8788, #25cb9b);
+  width: 100%;
+  padding: 40rpx 0rpx 30rpx 40rpx;
+  background: #1f8788;
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -31,7 +31,7 @@
 
 .master-wrp {
   position: relative;
-  width: 750rpx;
+  width: 100%;
   height: 150rpx;
   background: #fff;
 }
@@ -39,9 +39,9 @@
 .master-wrp .bg-half {
   position: absolute;
   top: 0;
-  width: 750rpx;
+  width: 100%;
   height: 75rpx;
-  background: linear-gradient(#25cb9b, #69c3aa);
+  background: #1f8788;
 }
 
 .master .avatar {
@@ -133,6 +133,7 @@
 .container .textarea-left {
   background: #fff;
   text-align: left;
+  padding: 0rpx 15rpx 0rpx 15rpx;
 }
 
 .container .textarea-left textarea {
@@ -151,6 +152,7 @@
 .container .destextarea-left {
   background: #fff;
   text-align: left;
+  padding: 5rpx 15rpx 5rpx 15rpx;
 }
 
 .container .destextarea-left textarea {
@@ -169,6 +171,7 @@
 .container .pointtextarea-left {
   background: #fff;
   text-align: left;
+  padding: 5rpx 15rpx 5rpx 15rpx; 
 }
 
 .container .pointtextarea-left textarea {
@@ -179,9 +182,9 @@
 }
 
 .publish_btn {
-  border: 1px solid #000;
-  border-radius: 100rpx;
-  background-color: #9be4f0;
+  border-radius: 25rpx;
+  background-color: #1f8788;
+  color: white;
 }
 
 .publish_btn::after {
@@ -253,4 +256,19 @@
 
 .golds-num-box .num-box .hui {
   background-color: #f5f5f9;
+}
+
+.openMap {
+  margin: 15rpx;
+  display: flex;
+}
+
+.openMap_btn {
+  border: 2px solid #298de5;
+  border-radius: 100rpx;
+  background-color: white;
+}
+
+.openMap_btn::after {
+  border: none;
 }

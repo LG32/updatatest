@@ -44,7 +44,7 @@
         </a>
         <image class='item-more' mode="aspectFit" src='../../images/icon/icon_wait.jpg' wx:if='{{item.state == 1}}'></image>
         <view class='item-more message-sum' wx:if='{{newAnswer[idx] != 0 &&item.state == 1 && newAnswer[idx] != undefault}}'>
-          <text>{{newAnswer[idx]}}</text>
+          <text style='color: white'>{{newAnswer[idx]}}</text>
         </view>
         <image class='item-more' mode="aspectFit" src='../../images/icon/icon_mission_finish.jpg' wx:if='{{item.state == 0}}'></image>
       </view>

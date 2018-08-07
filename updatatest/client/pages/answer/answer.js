@@ -34,7 +34,7 @@ Page({
     }
     console.log("options.question_id:" + options.question_id)
     wx.request({
-      url: 'https://wudnq2cw.qcloud.la/weapp/secondpage/',
+      url: 'https://800321007.littlemonster.xyz/weapp/secondpage/',
       method: 'GET',
       data: {
         questionID: options.question_id,
@@ -97,7 +97,7 @@ Page({
     var that = this
     var bestAnswerID = that.data.comments_answer[tempBestID].answerID
     wx.request({
-      url: 'https://wudnq2cw.qcloud.la/weapp/finishtask/',
+      url: 'https://800321007.littlemonster.xyz/weapp/finishtask/',
       data: {
         skey: that.data.skey,
         questionID: that.data.questionId,
@@ -133,7 +133,7 @@ Page({
     if (that.data.master_question[0].state == 1) {
       if (that.data.master_userInfo.openId != that.data.openID) {
         wx.request({
-          url: 'https://wudnq2cw.qcloud.la/weapp/queryaccept/',
+          url: 'https://800321007.littlemonster.xyz/weapp/queryaccept/',
           method: 'POST',
           data: {
             questionID: that.data.questionId,
@@ -180,7 +180,7 @@ Page({
   acceptask: function () {
     var that = this
     wx.request({
-      url: 'https://wudnq2cw.qcloud.la/weapp/acceptask/',
+      url: 'https://800321007.littlemonster.xyz/weapp/acceptask/',
       method: 'POST',
       data: {
         questionID: that.data.questionId,
@@ -246,7 +246,7 @@ Page({
           if (res.confirm) {
             console.log('用户点击确定')
             wx.request({
-              url: 'https://wudnq2cw.qcloud.la/weapp/approve/',
+              url: 'https://800321007.littlemonster.xyz/weapp/approve/',
               data: {
                 skey: that.data.skey,
                 questionID: that.data.questionId,

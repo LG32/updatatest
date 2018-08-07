@@ -54,7 +54,7 @@ Page({
         })
       } else {
         wx.uploadFile({
-          url: 'https://wudnq2cw.qcloud.la/weapp/help',
+          url: 'https://800321007.littlemonster.xyz/weapp/help',
           filePath: that.data.pic_list,
           name: 'file',
           header: {

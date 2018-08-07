@@ -2,25 +2,81 @@
 <import src="/wxSearch/wxSearch.wxml" />
 
 <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-  <view class='question_title'>
-    <text>{{title_text}}</text>
-  </view>
 
-  <view class='search flex-wrp'>
-    <view class='search-left flex-item'>
-      <image src="../../images/search.png"></image>
-      <input name="content" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="想看哪？" placeholder-class="search-placeholder" />
+  <view class='chioceDistrict-mask' wx:if='{{chioceDistrict}}'  bindtap='chioceDistrictFlag'></view>
+  <view class='chioceSorting-mask' wx:if='{{chioceSorting}}' bindtap='chioceSortingFlag'></view>
+
+
+  <view class="search-view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
+    <view bindtap="choiceItem" data-item="1" class="chioce-item-hot">{{activeDistrictName}}
+      <image class="icon-chioce" src="{{districtChioceIcon}}"></image>
     </view>
-    <view class='search-right flex-item' bindtap="wxSearchFn">
-      <image src='../../images/lighting.png'></image>
+    <view class="search-content">
+      <image src="../../images/search-pic.png" class="search-icon" />
+      <input class="search-input" maxlength="30" confirm-type="搜索" name="content" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="想看哪？" placeholder-class="search-placeholder">
+      </input>
+      <button class='search-btn' bindtap="wxSearchFn">搜索
+      </button>
     </view>
   </view>
 
-  <template is="wxSearch" data="{{wxSearchData}}" />
 
-  <view wx:if='{{firstlist.length == 0}}'>
-    <text style='font-size: 30rpx;color: #666;'>还没有人发在该地点附近的任务</text>
+
+
+  <view class="swiper-container">
+    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+      <block wx:for="{{banners}}" wx:key="id">
+        <swiper-item>
+          <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" class="slide-image" width="750rpx" height="300rpx" bindtap='bannersActivity' />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{banners}}" wx:key="unique">
+        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+      </block>
+    </view>
   </view>
+
+
+  <!-- <template is="wxSearch" data="{{wxSearchData}}" /> -->
+
+  <view class="product-list">
+    <!--条件选择-->
+    <view class="choice-bar">
+
+      <view bindtap="choiceItem" data-item="3" class="chioce-item chioce-item-last" hover-class="click-once-opaque">当前:{{title_text}}</view>
+
+      <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">{{activeSortingName}}
+        <image class="icon-chioce" src="{{sortingChioceIcon}}"></image>
+      </view>
+
+
+      <!-- 热门区域 -->
+      <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show1'}}">
+        <!-- 父菜单 -->
+        <view class="district-left">
+          <view wx:for="{{districtList}}" catchtap="selectDistrictParent" data-index="{{index}}" class="district-parent{{index==activeDistrictParentIndex||index==0&&activeDistrictParentIndex==-1?' district-parent-active':''}}" hover-class="click-once">{{item.district_name}}</view>
+        </view>
+        <!-- 子菜单 -->
+        <view class="district-right">
+          <scroll-view scroll-y class="scroll-district" scroll-top="{{scrollTop}}">
+            <view id="{{index}}" wx:for="{{children_list[activeDistrictParentIndex].list}}" catchtap="selectDistrictChildren" class="district-children" hover-class="click-once" data-index="{{index}}">{{children_list[activeDistrictParentIndex].list[index].district_name}}</view>
+          </scroll-view>
+        </view>
+      </view>
+
+
+
+
+
+      <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show2'}}">
+        <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>
+      </view>
+    </view>
+  </view>
+
+
 
   <block wx:for="{{firstlist}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
     <view class='feed-item'>
@@ -58,4 +114,12 @@
       </navigator>
     </view>
   </block>
+
+  <view wx:if='{{firstlist.length == 0}}' class='td'>
+    <image src='../../images/more/enga.png'></image>
+    <text style='font-size: 30rpx;color: #666;'>还没人在这里发任务,赶紧来发一条吧！</text>
+  </view>
+  <view wx:if='{{firstlist.length != 0}}' class='end'>
+    <text style='font-size: 30rpx;color: #666;'>没有更多任务了！</text>
+  </view>
 </scroll-view>
