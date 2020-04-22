@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/start/start",
     "pages/firstpage/firstpage",
+    "pages/start/start",
     "pages/answer/answer",
     "pages/my/my",
     "pages/publish/publish",
@@ -9,14 +9,14 @@
     "pages/camera/camera"
   ],
   "window": {
-    "backgroundColor": "#1f8788",
+    "backgroundColor": "#009688",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#1f8788",
+    "navigationBarBackgroundColor": "#009688",
     "navigationBarTitleText": "看哪",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "backgroundColor": "#1f8788",
+    "backgroundColor": "#009688",
     "borderStyle": "black",
     "color": "#fff",
     "selectedColor": "#000",
@@ -41,5 +41,6 @@
       }
     ]
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

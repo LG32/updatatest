@@ -6,11 +6,11 @@
   <view class='chioceDistrict-mask' wx:if='{{chioceDistrict}}'  bindtap='chioceDistrictFlag'></view>
   <view class='chioceSorting-mask' wx:if='{{chioceSorting}}' bindtap='chioceSortingFlag'></view>
 
-
-  <view class="search-view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
+  <view class="search-view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(0,150,136, 1), rgba(105,195,170, 0.9))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
     <view bindtap="choiceItem" data-item="1" class="chioce-item-hot">{{activeDistrictName}}
       <image class="icon-chioce" src="{{districtChioceIcon}}"></image>
     </view>
+
     <view class="search-content">
       <image src="../../images/search-pic.png" class="search-icon" />
       <input class="search-input" maxlength="30" confirm-type="搜索" name="content" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" placeholder="想看哪？" placeholder-class="search-placeholder">
@@ -19,9 +19,6 @@
       </button>
     </view>
   </view>
-
-
-
 
   <view class="swiper-container">
     <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
@@ -44,7 +41,6 @@
   <view class="product-list">
     <!--条件选择-->
     <view class="choice-bar">
-
       <view bindtap="choiceItem" data-item="3" class="chioce-item chioce-item-last" hover-class="click-once-opaque">当前:{{title_text}}</view>
 
       <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">{{activeSortingName}}
@@ -65,10 +61,6 @@
           </scroll-view>
         </view>
       </view>
-
-
-
-
 
       <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show2'}}">
         <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>

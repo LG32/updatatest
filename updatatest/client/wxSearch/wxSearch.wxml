@@ -21,7 +21,7 @@
 
       <view class="wxSearchHistory" style="display:{{wxSearchData.view.isShowSearchHistory ? 'block':'none'}}">
         <text class="wxSearchTitle">搜索历史</text>
-        
+
         <view wx:if="{{wxSearchData.his[0]}}" class="wxSearchHistoryList">
           <block wx:for="{{wxSearchData.his}}">
             <view class="wxSearchHistoryItem">

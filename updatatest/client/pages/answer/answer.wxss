@@ -11,7 +11,7 @@
   position: relative;
   width: 100%;
   padding: 40rpx 0rpx 30rpx 60rpx;
-  background: #1f8788;
+  background: #009688;
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -45,7 +45,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: #1f8788;
+  background: #009688;
 }
 
 .master .avatar {
@@ -207,7 +207,7 @@
   display: flex;
   align-content: center;
   align-items: center;
-  background-color: #f0f4f3 
+  background-color: #f0f4f3
 }
 
 .avatar {

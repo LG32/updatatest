@@ -10,7 +10,7 @@
   position: relative;
   width: 100%;
   padding: 40rpx 0rpx 30rpx 60rpx;
-  background: #1f8788;
+  background: #009688;
   color: #fff;
   font-size: 38rpx;
   line-height: 48rpx;
@@ -37,7 +37,7 @@
   top: 0;
   width: 750rpx;
   height: 75rpx;
-  background: #1f8788;
+  background: #009688;
 }
 .master .avatar {
   flex: 1;
@@ -108,7 +108,7 @@
   background-color: #FF2E2E;
   height: 40rpx;
   width: 40rpx;
-  border-radius: 100%;  
+  border-radius: 100%;
 }
 .message-sum text{
   font-size: 14;
@@ -116,6 +116,6 @@
 }
 .sign_btn {
   border-radius: 25rpx;
-  background-color: #1f8788;
+  background-color: #009688;
   color: white;
 }

@@ -9,6 +9,11 @@ var app = getApp();
 var mkey = new QQMapWX({
   key: '7NBBZ-YF4HK-UONJZ-AVJYJ-5Y5V7-XFFU5'
 });
+let close_icon_white = "../../images/icon-go-white.png";
+let select_icon_white = "../../images/icon-down-white.png";
+let close_icon_black = '../../images/icon-go-black.png';
+let select_icon_black = '../../images/icon-down-black.png';
+
 Page({
   data: {
     firstlist: [],
@@ -116,8 +121,8 @@ Page({
     }, {
       value: "金币最多"
     }],
-    districtChioceIcon: "../../images/icon-go-black.png",
-    sortingChioceIcon: "../../images/icon-go-black.png",
+    districtChioceIcon: close_icon_white,
+    sortingChioceIcon: close_icon_black,
     chioceDistrict: false,
     chioceSorting: false,
     chioceFilter: false,
@@ -469,16 +474,16 @@ Page({
       case "1":
         if (this.data.chioceDistrict) {
           this.setData({
-            districtChioceIcon: "../../images/icon-go-black.png",
-            sortingChioceIcon: "../../images/icon-go-black.png",
+            districtChioceIcon: close_icon_white,
+            sortingChioceIcon: close_icon_black,
             chioceDistrict: false,
             chioceSorting: false,
             chioceFilter: false,
           });
         } else {
           this.setData({
-            districtChioceIcon: "../../images/icon-down-black.png",
-            sortingChioceIcon: "../../images/icon-go-black.png",
+            districtChioceIcon: select_icon_white,
+            sortingChioceIcon: close_icon_black,
             chioceDistrict: true,
             chioceSorting: false,
             chioceFilter: false,
@@ -488,16 +493,16 @@ Page({
       case "2":
         if (this.data.chioceSorting) {
           this.setData({
-            districtChioceIcon: "../../images/icon-go-black.png",
-            sortingChioceIcon: "../../images/icon-go-black.png",
+            districtChioceIcon: close_icon_white,
+            sortingChioceIcon: close_icon_black,
             chioceDistrict: false,
             chioceSorting: false,
             chioceFilter: false,
           });
         } else {
           this.setData({
-            districtChioceIcon: "../../images/icon-go-black.png",
-            sortingChioceIcon: "../../images/icon-down-black.png",
+            districtChioceIcon: close_icon_white,
+            sortingChioceIcon: select_icon_black,
             chioceDistrict: false,
             chioceSorting: true,
             chioceFilter: false,
@@ -508,8 +513,8 @@ Page({
   },
   hideAllChioce: function() {
     this.setData({
-      districtChioceIcon: "../../images/icon-go-black.png",
-      sortingChioceIcon: "../../images/icon-go-black.png",
+      districtChioceIcon: close_icon_white,
+      sortingChioceIcon: close_icon_black,
       chioceDistrict: false,
       chioceSorting: false,
       chioceFilter: false,
@@ -539,7 +544,7 @@ Page({
       that.searchInformationRequest()
     }
     that.setData({
-      districtChioceIcon: "../../images/icon-go-black.png",
+      districtChioceIcon: close_icon_white,
       chioceDistrict: false,
       activeDistrictChildrenIndex: index,
       productList: [],
@@ -555,7 +560,7 @@ Page({
     var index = e.currentTarget.dataset.index;
     var that = this
     that.setData({
-      sortingChioceIcon: "../../images/icon-go-black.png",
+      sortingChioceIcon: close_icon_black,
       chioceSorting: false,
       activeSortingIndex: index,
       activeSortingName: that.data.sortingList[index].value,

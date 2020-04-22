@@ -1,82 +1,93 @@
 <!--pages/publish/publish.wxml-->
-<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-  <view class='container'>
-    <form bindsubmit='formSubmit'>
-      <view class='question'>
-        <text class='question-title'>编辑任务</text>
-      </view>
-      <view class='master-wrp'>
-        <view class='bg-half'>
-          <view class='master flex-wrp'>
-            <view class='avatar flex-item'>
-              <image src='{{userInfo.avatarUrl}}'></image>
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5"
+             bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view class='container'>
+        <form bindsubmit='formSubmit' style="width: 100%">
+            <view class='question'>
+                <text class='question-title'>编辑任务</text>
             </view>
-            <view class='master-info flex-item'>
-              <text class='master-name' style='margin: 0 0 0 45rpx'>{{userInfo.nickName}}</text>
-              <view>
-                <image src='../../images/icon/money.jpg' style='height: 20px;width: 20px;'></image>
-                <text class='master-des' style='display: inline-block;margin: 0 0 0 30rpx'>{{gold}}</text>
-              </view>
+            <view class='master-wrp'>
+                <view class='bg-half'>
+                    <view class='master flex-wrp'>
+                        <view class='avatar flex-item'>
+                            <image src='{{userInfo.avatarUrl}}'></image>
+                        </view>
+                        <view class='master-info flex-item'>
+                            <text class='master-name' style='margin: 0 0 0 45rpx'>{{userInfo.nickName}}</text>
+                            <view>
+                                <image src='../../images/icon/money.jpg' style='height: 20px;width: 20px;'></image>
+                                <text class='master-des' style='display: inline-block;margin: 0 0 0 30rpx'>{{gold}}
+                                </text>
+                            </view>
+                        </view>
+                        <view class='follow flex-item'>
+                            <button form-type="submit" size='mini' class='publish_btn'>发布</button>
+                        </view>
+                    </view>
+                </view>
             </view>
-            <view class='follow flex-item'>
-              <button form-type="submit" size='mini' class='publish_btn'>发布</button>
-            </view>
-          </view>
-        </view>
-      </view>
 
 
-      <view class='feed-item' style='padding: 30rpx 30rpx 20rpx 30rpx'>
-        <view class='feed-source'>
-          <text>题目</text>
-          <view class='textarea flex-wrp'>
-            <view class='textarea-left flex-item'>
-              <textarea name="title" value='{{publishing.title}}' placeholder="输入题目" placeholder-class="title-placeholder"></textarea>
+            <view class='feed-item'>
+                <view class='feed-source'>
+                    <text>题目</text>
+                    <view class='textarea flex-wrp'>
+                        <view class='textarea-left flex-item'>
+                            <textarea name="title" value='{{publishing.title}}' placeholder="输入题目"
+                                      placeholder-class="title-placeholder"></textarea>
+                        </view>
+                    </view>
+                </view>
             </view>
-          </view>
-        </view>
-      </view>
 
-      <view class='feed-item' style='padding: 30rpx 30rpx 20rpx 30rpx'>
-        <view class='feed-source'>
-          <text>描述</text>
-          <view class='destextarea flex-wrp'>
-            <view class='destextarea-left flex-item'>
-              <textarea name="description" value='{{publishing.des}}' placeholder="输入任务描述（如：蓝天白云下的广州塔）" placeholder-class="title-placeholder"></textarea>
+            <view class='feed-item'>
+                <view class='feed-source'>
+                    <text>描述</text>
+                    <view class='destextarea flex-wrp'>
+                        <view class='destextarea-left flex-item'>
+                            <textarea name="description" value='{{publishing.des}}' placeholder="输入任务描述（如：蓝天白云下的广州塔）"
+                                      placeholder-class="title-placeholder"></textarea>
+                        </view>
+                    </view>
+                </view>
             </view>
-          </view>
-        </view>
-      </view>
 
-      <view class='feed-item' style='padding: 30rpx 30rpx 20rpx 30rpx'>
-        <view class='feed-source'>
-          <text>地点</text>
-          <view class='pointtextarea flex-wrp'>
-            <view class='pointtextarea-left flex-item' bindtap='chooseLocation'>
-              <textarea disabled='false' wx:if="{{hasLocation != true}}" style='color: #808080'>点击按钮选择地点</textarea>
-              <textarea disabled='false' wx:if="{{hasLocation == true}}" style='color: #000' value="{{address}}">{{location.address}}</textarea>
+            <view class='feed-item'>
+                <view class='feed-source'>
+                    <text>地点</text>
+                    <view class='pointtextarea flex-wrp'>
+                        <view class='pointtextarea-left flex-item' bindtap='chooseLocation'>
+                            <textarea disabled='false' wx:if="{{hasLocation != true}}" style='color: #808080'>点击按钮选择地点
+                            </textarea>
+                            <textarea disabled='false' wx:if="{{hasLocation == true}}" style='color: #000'
+                                      value="{{address}}">{{location.address}}
+                            </textarea>
+                        </view>
+                    </view>
+                </view>
+<!--                <view class='openMap'>-->
+<!--                    <button bindtap='chooseLocation' size='mini' class='openMap_btn'>点我选择地点</button>-->
+<!--                </view>-->
             </view>
-          </view>
-        </view>
-        <view class='openMap'>
-        <button bindtap='chooseLocation' size='mini' class='openMap_btn'>点我选择地点</button>
-      </view>
-      </view>
-    </form>
+        </form>
 
-    <view class="golds-num-box">
-      <view class="num-label">赏金数</view>
-      <view class="num-box">
-        <view class="num-jian {{goldsNumber == goldsNumMin ? 'hui': ''}}" bindtap="numJianTap" style='font-size: 22px'>-</view>
-        <view class="num-input">
-          <input type="number" value="{{goldsNumber}}" disabled/>
+        <view class="golds-num-box">
+            <view class="num-label">赏金数</view>
+            <view class="num-box">
+                <view class="num-jian {{goldsNumber == goldsNumMin ? 'hui': ''}}" bindtap="numJianTap"
+                      style='font-size: 22px'>-
+                </view>
+                <view class="num-input">
+                    <input type="number" value="{{goldsNumber}}" disabled/>
+                </view>
+                <view class="num-jia {{goldsNumber== goldsNumMax ? 'hui': ''}}" bindtap="numJiaTap"
+                      style='font-size: 14px'>+
+                </view>
+            </view>
         </view>
-        <view class="num-jia {{goldsNumber== goldsNumMax ? 'hui': ''}}" bindtap="numJiaTap" style='font-size: 14px'>+</view>
-      </view>
+
+        <view class="copyright">
+            <text>tips:准确描述有助于任务更容易地被完成</text>
+        </view>
     </view>
-
-    <view class="copyright">
-      <text>tips:准确描述有助于任务更容易地被完成</text>
-    </view>
-  </view>
 </scroll-view>

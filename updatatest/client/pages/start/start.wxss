@@ -16,7 +16,7 @@ page {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(#1f8788, #69c3aa);
+  background: linear-gradient(#009688, #69c3aa);
   align-items: stretch;
   padding: 0;
   height: 100%;
@@ -242,7 +242,7 @@ page {
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
   color: white;
-  background-color: #1f8788;
+  background-color: #009688;
   margin: 40% 20%;
   border-radius: 100rpx;
 }
