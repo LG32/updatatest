@@ -30,7 +30,7 @@ Page({
     }
     that.setData({
       skey: temp.skey,
-      userInfo: temp.userinfo,
+      userInfo: temp.userInfo,
       gold: gold,
       signUpDate: signUpDate,
       flag: flag,

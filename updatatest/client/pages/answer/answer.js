@@ -1,7 +1,7 @@
 // pages/answer/answer.js
-var constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
-var SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
-var util = require('../../utils/util.js')
+let constants = require('../../vendor/wafer2-client-sdk/lib/constants.js');
+let SESSION_KEY = 'weapp_session_' + constants.WX_SESSION_MAGIC_ID;
+let util = require('../../utils/util.js')
 Page({
   data: {
     dataSrc: {},
@@ -18,39 +18,43 @@ Page({
   },
 
   onLoad: function (options) {
-    var that = this
-    var commentsobj = []
-    var masterobj = []
-    var power = 0
-    var temp = wx.getStorageSync(SESSION_KEY)
+    let that = this;
+
+    let temp = wx.getStorageSync(SESSION_KEY);
     that.setData({
-      openID: temp.userinfo.openId,
+      openID: temp.userInfo.openId,
       questionId: options.question_id,
       skey: temp.skey,
-    })
+    });
     try {
       wx.setStorageSync('question_id', options.question_id)
     } catch (e) {
     }
-    console.log("options.question_id:" + options.question_id)
-    wx.request({
-      url: 'https://800321007.littlemonster.xyz/weapp/secondpage/',
-      method: 'GET',
+    console.log("options.question_id:" + options.question_id);
+    that.loadInfo(options.question_id);
+  },
+
+  loadInfo: function (questionID) {
+    let that = this;
+    let commentsobj = [];
+    let masterobj = [];
+    let power = 0;
+
+    wx.cloud.callFunction({
+      name: 'secondpage',
       data: {
-        questionID: options.question_id,
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        questionID: questionID,
       },
       success: function (res) {
-        var best_id = ''
-        for (var i = 0; i < res.data.data.msg.answer.length; i++) {
+        console.log((res));
+        let best_id = '';
+        for (let i = 0; i < res.data.data.msg.answer.length; i++) {
           commentsobj[i] = JSON.parse(res.data.data.msg.answer[i].user_info);
           if (res.data.data.msg.answer[i].best == 0)
             best_id = i
         }
         masterobj = JSON.parse(res.data.data.msg.user_info);
-        if (temp.userinfo.openId == masterobj.openId) {
+        if (temp.userInfo.openId == masterobj.openId) {
           power = 1
         } else {
           power = 0
@@ -72,8 +76,8 @@ Page({
    * 点击最佳按钮
    */
   chooseBest: function (e) {
-    var that = this
-    var tempBestID = e.target.dataset.id
+    let that = this
+    let tempBestID = e.target.dataset.id
     wx.showModal({
       title: '提示',
       content: '是否采纳该回复为最佳，并结束任务',
@@ -94,8 +98,8 @@ Page({
    * 采纳为最佳
    */
   theBest: function (tempBestID) {
-    var that = this
-    var bestAnswerID = that.data.comments_answer[tempBestID].answerID
+    let that = this
+    let bestAnswerID = that.data.comments_answer[tempBestID].answerID
     wx.request({
       url: 'https://800321007.littlemonster.xyz/weapp/finishtask/',
       data: {
@@ -129,7 +133,7 @@ Page({
    * 我帮你拍按钮
    */
   goToCamera: function () {
-    var that = this
+    let that = this
     if (that.data.master_question[0].state == 1) {
       if (that.data.master_userInfo.openId != that.data.openID) {
         wx.request({
@@ -178,7 +182,7 @@ Page({
    * 接任务
    */
   acceptask: function () {
-    var that = this
+    let that = this
     wx.request({
       url: 'https://800321007.littlemonster.xyz/weapp/acceptask/',
       method: 'POST',
@@ -209,9 +213,9 @@ Page({
    * 点击大图
    */
   biggerphoto: function (event) {
-    var srcList = new Array();
-    var src = event.currentTarget.dataset.src;//获取data-src
-    var imgList = event.currentTarget.dataset.list;//获取data-list
+    let srcList = new Array();
+    let src = event.currentTarget.dataset.src;//获取data-src
+    let imgList = event.currentTarget.dataset.list;//获取data-list
     srcList = imgList.split(',');
     wx.previewImage({
       current: src, // 当前显示图片的http链接
@@ -222,7 +226,7 @@ Page({
    * 跳转至地图
    */
   openMap: function () {
-    var that = this
+    let that = this
     wx.openLocation({
       latitude: Number(that.data.master_question[0].latitude),
       longitude: Number(that.data.master_question[0].longitude),
@@ -233,7 +237,7 @@ Page({
    * 点赞
    */
   addGold: function () {
-    var that = this
+    let that = this
     if (that.data.master_question[0].state == 0) {
       util.showModel('提示', '任务已结束，你来晚了')
     } else {
@@ -260,7 +264,7 @@ Page({
               success: function (res) {
                 console.log('addGold success...')
                 console.log(res.data)
-                var gold = "master_question[" + 0 + "].questionGold"
+                let gold = "master_question[" + 0 + "].questionGold"
                 that.setData({
                   [gold]: res.data.data.msg.questionGold
                 })
@@ -283,11 +287,11 @@ Page({
    * 时间格式
    */
   timeFormat: function () {
-    var that = this
-    var tempTime = ''
+    let that = this
+    let tempTime = ''
     console.log('start timeformat...')
-    for (var i = 0; i < that.data.comments_answer.length; i++) {
-      var tempDate = "comments_answer[" + i + "].answerTime"
+    for (let i = 0; i < that.data.comments_answer.length; i++) {
+      let tempDate = "comments_answer[" + i + "].answerTime"
       tempTime = that.data.comments_answer[i].answerTime.substr(0, 10)
       console.log(tempTime)
       that.setData({

@@ -18,7 +18,7 @@ Page({
     var temp = wx.getStorageSync(SESSION_KEY)
     var gold = wx.getStorageSync('gold')
     that.setData({
-      userInfo: temp.userinfo,
+      userInfo: temp.userInfo,
       gold: gold,
       mission_state: options.mission_state,
     })
