@@ -203,7 +203,7 @@ Page({
         let obj;
         let that = this;
 
-      wx.cloud.callFunction({
+        wx.cloud.callFunction({
             name: 'firstpage',
             data: {
                 city: city,
@@ -213,11 +213,6 @@ Page({
 
             success: function (res) {
                 console.log(res);
-                // for (let i = 0; i < res.data.data.msg.length; i++) {
-                //     obj[i] = JSON.parse(res.data.data.msg[i].user_info);
-                // }
-                // console.log(obj);
-                // console.log("经纬GET成功");
                 that.setData({
                     firstlist: res.result.data,
                     user_info: obj,
@@ -225,6 +220,7 @@ Page({
                 });
                 that.getDistance();
                 that.simpleDescription();
+                wx.setStorageSync('questions', res.result.data);
                 util.showSuccess('刷新成功')
             },
         });
@@ -234,15 +230,15 @@ Page({
      * 计算距离
      */
     getDistance: function () {
-        let that = this
-        let distance = new Array()
-        let sum = 0
-        let len = that.data.firstlist.length
-        let a = 0
-        console.log('start getDistance')
+        let that = this;
+        let distance = [];
+        let sum = 0;
+        let len = that.data.firstlist.length;
+        let a = 0;
+        console.log('start getDistance');
         that.setData({
             distance: []
-        })
+        });
         do {
             mkey.calculateDistance({
                 from: {
@@ -254,31 +250,30 @@ Page({
                     longitude: that.data.firstlist[a].longitude,
                 }],
                 success: function (res) {
-                    console.log(res)
-                    let toLat = res.result.elements[0].to.lat
-                    let toLng = res.result.elements[0].to.lng
-                    let tempDistance = res.result.elements[0].distance
+                    console.log(res);
+                    let toLat = res.result.elements[0].to.lat;
+                    let toLng = res.result.elements[0].to.lng;
+                    let tempDistance = res.result.elements[0].distance;
                     console.log(tempDistance);
                     for (let i = 0; i < len; i++) {
-                        if (that.data.firstlist[i].latitude == toLat) {
-                            if (that.data.firstlist[i].longitude == toLng) {
-                                sum = i
-                                let setdistance = "distance[" + sum + "]"
-                                let setListDistance = "firstlist[" + sum + "].distance"
-                                console.log(sum)
-                                if (tempDistance < 1000) {
-                                    distance[sum] = tempDistance + '米'
-                                } else {
-                                    tempDistance = tempDistance / 1000
-                                    let s = tempDistance + "";
-                                    let str = s.substring(0, s.indexOf(".") + 3);
-                                    distance[sum] = str + '千米'
-                                }
-                                that.setData({
-                                    [setdistance]: distance[sum],
-                                    [setListDistance]: res.result.elements[0].distance,
-                                })
+                        if (that.data.firstlist[i].latitude === toLat &&
+                            that.data.firstlist[i].longitude === toLng) {
+                            sum = i;
+                            let setdistance = "distance[" + sum + "]";
+                            let setListDistance = "firstlist[" + sum + "].distance";
+                            console.log('firstlist:', sum, res.result.elements[0].distance);
+                            if (tempDistance < 1000) {
+                                distance[sum] = tempDistance + '米'
+                            } else {
+                                tempDistance = tempDistance / 1000;
+                                let s = tempDistance + "";
+                                let str = s.substring(0, s.indexOf(".") + 3);
+                                distance[sum] = str + '千米'
                             }
+                            that.setData({
+                                [setdistance]: distance[sum],
+                                [setListDistance]: res.result.elements[0].distance,
+                            })
                         }
                     }
                 },
@@ -293,29 +288,29 @@ Page({
      * 下拉刷新
      */
     onPullDownRefresh: function () {
-        let that = this
+        let that = this;
         that.setData({
             urlNum: 0,
             searchDistrict: that.data.title_text
-        })
-        that.searchInformationRequest()
+        });
+        that.searchInformationRequest();
         wx.stopPullDownRefresh()
     },
     /**
      * 搜索框请求
      */
     searchRequest: function (e) {
-        let searchText = e.data.wxSearchData.value
-        let that = this
-        console.log('start search...')
-        console.log(e.data)
-        if (searchText != '') {
+        let searchText = e.data.wxSearchData.value;
+        let that = this;
+        console.log('start search...');
+        console.log(e.data);
+        if (searchText !== '') {
             that.setData({
                 urlNum: 0,
                 searchDistrict: searchText,
                 activeSortingName: "综合排序",
                 activeSortingIdex: 0,
-            })
+            });
             that.searchInformationRequest()
         }
     },
@@ -323,10 +318,10 @@ Page({
      * 搜索请求
      */
     searchInformationRequest: function () {
-        let obj = []
-        let that = this
-        let urlNum = that.data.urlNum
-        let searchUrl = that.data.searchUrl[urlNum].url
+        let obj = [];
+        let that = this;
+        let urlNum = that.data.urlNum;
+        let searchUrl = that.data.searchUrl[urlNum].url;
         wx.request({
             url: 'https://800321007.littlemonster.xyz/weapp/' + searchUrl + '/',
             method: 'GET',
@@ -334,7 +329,7 @@ Page({
                 question: that.data.searchDistrict,
             },
             success: function (res) {
-                console.log(res.data)
+                console.log(res.data);
                 for (let i = 0; i < res.data.data.msg.length; i++) {
                     obj[i] = JSON.parse(res.data.data.msg[i].user_info);
                 }
@@ -342,11 +337,11 @@ Page({
                     firstlist: res.data.data.msg,
                     user_info: obj,
                     title_text: that.data.searchDistrict
-                })
+                });
                 that.getDistance();
             },
             fail: function (res) {
-                util.showBusy('搜索失败')
+                util.showBusy('搜索失败');
                 console.log(res)
             }
         })
@@ -355,13 +350,13 @@ Page({
      * 简要化描述
      */
     simpleDescription: function () {
-        let that = this
+        let that = this;
         for (let i = 0; i < that.data.firstlist.length; i++) {
             if (that.data.firstlist[i].description.length > 60) {
-                let tempStr = that.data.firstlist[i].description.substr(0, 60)
-                let str = tempStr + '......'
-                console.log(str)
-                let newStr = "firstlist[" + i + "].description"
+                let tempStr = that.data.firstlist[i].description.substr(0, 60);
+                let str = tempStr + '......';
+                console.log(str);
+                let newStr = "firstlist[" + i + "].description";
                 that.setData({
                     [newStr]: str
                 })
@@ -631,4 +626,4 @@ Page({
         })
     }
 
-})
+});

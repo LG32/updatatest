@@ -2,19 +2,19 @@
 <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
   <view class='container'>
-    <block wx:for='{{master_question}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
+<!--    <block wx:for='{{master_question}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">-->
       <view class='question-view'>
-        <text class='question-title'>{{item.title}}</text>
+        <text class='question-title'>{{master_question.title}}</text>
       </view>
 
       <view class='master-wrp'>
         <view class='bg-half'>
           <view class='master flex-wrp'>
             <view class='avatar flex-item'>
-              <image src='{{master_userInfo.avatarUrl}}'></image>
+              <image src='{{master_question.userInfo.avatarUrl}}'></image>
             </view>
             <view class='master-info flex-item'>
-              <text class='master-name'>{{master_userInfo.nickName}}</text>
+              <text class='master-name'>{{master_question.userInfo.nickName}}</text>
               <text class='master-des' wx:if='{{power == 1}}'>你为任务发布者</text>
             </view>
             <view class='follow flex-item' bindtap='addGold'>
@@ -26,22 +26,22 @@
 
       <view class='master-text'>
         <view class='master-content'>
-          <text>   描述：{{item.description}}</text>
+          <text>   描述：{{master_question.description}}</text>
         </view>
 
         <view class='master-content'>
-          <text>   地点：{{item.adress}}</text>
+          <text>   地点：{{master_question.address}}</text>
         </view>
 
         <view class='master-content'>
-          <text>   问题赏金：{{item.questionGold}}</text>
+          <text>   问题赏金：10</text>
         </view>
       </view>
 
       <view class='openMap'>
         <button bindtap='openMap' size='mini' class='openMap_btn'>点我查看详细位置</button>
       </view>
-    </block>
+<!--    </block>-->
 
     <block wx:if='{{question_state == 0}}'>
       <view class="comments-des-info" style="width: 97%">
@@ -56,14 +56,14 @@
 
           <view style="width:100%;float:left;border-bottom:1px solid #eee;  display: flex;align-items: center;justify-content: center;">
             <view class='comments-pic' style='width: 700rpx;border: 1px solid #fff;'>
-              <image mode="aspectFill" class='picture' src='{{comments_answer[best_id].image_url}}' data-list="{{comments_answer[best_id].image_url}}" data-src="{{comments_answer[best_id].image_url}}" bindtap='biggerphoto' style='width: 700rpx'></image>
+              <image mode="aspectFill" class='picture' src='{{commentsobj[0].img_id}}' data-list="{{commentsobj[0].img_id}}" data-src="{{commentsobj[0].img_id}}" bindtap='biggerphoto' style='width: 700rpx'></image>
             </view>
           </view>
         </view>
         <view style='display: flex;align-items: center;justify-content: center;height: 100px'>
           <view style="width:50%;float:left;height:80px;padding: 35rpx">
             <view style='float:left'>
-              <image class='avatar' style="width: 60px; height: 60px;" src="{{comments_userInfo[best_id].avatarUrl}}"></image>
+              <image class='avatar' style="width: 60px; height: 60px;" src="{{commentsobj[0].userInfo.avatarUrl}}"></image>
             </view>
             <view style='float: right; padding: 15rpx 0rpx 0rpx 10rpx'>
               <view class="label-text">
@@ -71,14 +71,14 @@
                 <text>最佳回答：</text>
               </view>
               <view class='label-text'>
-                <text>{{comments_userInfo[best_id].nickName}}</text>
+                <text>{{commentsobj[0].userInfo.nickName}}</text>
               </view>
             </view>
 
           </view>
           <view style="width:50%;float: right;">
-            <view style='font-size: 28rpx'>{{comments_answer[best_id].comments}}</view>
-            <view style="color: #B0B0B0;font-size:24rpx;">{{comments_answer[best_id].answerTime}} </view>
+            <view style='font-size: 28rpx'>{{commentsobj[0].comments}}</view>
+            <view style="color: #B0B0B0;font-size:24rpx;">{{commentsobj[0].answerTime}} </view>
           </view>
         </view>
       </view>
@@ -86,18 +86,18 @@
 
     <view class="comments-des-info" style="margin-top:35rpx;">
       <view class="label-title" style="border-bottom:3px solid #eee;border-top:3px solid #eee">大家帮助
-        <text style="color:red">（{{comments_answer.length}}）</text>
+        <text style="color:red">（{{commentsobj.length}}）</text>
       </view>
 
-      <block wx:for='{{comments_answer}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
+      <block wx:for='{{commentsobj}}' wx:for-index="idx" wx:for-item data-item="{{idx}}">
         <view class="comments-text" style="margin-top:15rpx;">
           <view style="width:100rpx;float:left;">
-            <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{comments_userInfo[idx].avatarUrl}}"></image>
-            <text>{{comments_userInfo[idx].nickName}}</text>
+            <image class='avatar' style="width: 100rpx; height: 100rpx;" src="{{item.userInfo.avatarUrl}}"></image>
+            <text>{{item.userInfo.nickName}}</text>
           </view>
           <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
             <view class='comments-pic'>
-              <image mode="aspectFit" class='picture' src='{{item.image_url}}' data-list="{{item.image_url}}" data-src="{{item.image_url}}" bindtap='biggerphoto'></image>
+              <image mode="aspectFit" class='picture' src='{{item.img_id}}' data-list="{{item.img_id}}" data-src="{{item.img_id}}" bindtap='biggerphoto'></image>
             </view>
             <view>{{item.comments}}</view>
             <view style="color: #B0B0B0;font-size:24rpx;">{{item.answerTime}} </view>

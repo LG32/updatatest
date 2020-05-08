@@ -72,13 +72,13 @@
 
   <block wx:for="{{firstlist}}" wx:for-index="idx" wx:for-item data-item="{{idx}}">
     <view class='feed-item'>
-      <navigator url="../answer/answer?question_id={{item.questionID}}">
+      <navigator url="../answer/answer?question_id={{item._id}}">
         <view class='feed-source'>
           <a class=''>
             <view class='avatar'>
-              <image src='{{user_info[idx].avatarUrl}}'></image>
+              <image src='{{firstlist[idx].userInfo.avatarUrl}}'></image>
             </view>
-            <text>{{user_info[idx].nickName}} 提出任务:{{item.title}}</text>
+            <text>{{firstlist[idx].userInfo.nickName}} 提出任务:{{item.title}}</text>
           </a>
           <image class='item-more' mode="aspectFit" src='../../images/more.png'></image>
         </view>
@@ -107,11 +107,11 @@
     </view>
   </block>
 
-  <view wx:if='{{firstlist.length == 0}}' class='td'>
+  <view wx:if='{{firstlist.length === 0}}' class='td'>
     <image src='../../images/more/enga.png'></image>
     <text style='font-size: 30rpx;color: #666;'>还没人在这里发任务,赶紧来发一条吧！</text>
   </view>
-  <view wx:if='{{firstlist.length != 0}}' class='end'>
+  <view wx:if='{{firstlist.length !== 0}}' class='end'>
     <text style='font-size: 30rpx;color: #666;'>没有更多任务了！</text>
   </view>
 </scroll-view>

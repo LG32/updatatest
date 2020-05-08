@@ -38,9 +38,9 @@
       <view class='feed-source'>
         <a class=''>
           <view class='avatar'>
-            <image src='{{mission_userInfo[idx].avatarUrl}}'></image>
+            <image src='{{item.userInfo.avatarUrl}}'></image>
           </view>
-          <text>{{mission_userInfo[idx].nickName}} 提出任务:{{item.title}}</text>
+          <text>{{item.userInfo.nickName}} 提出任务:{{item.title}}</text>
         </a>
         <image class='item-more' mode="aspectFit" src='../../images/icon/icon_wait.jpg' wx:if='{{item.state == 1}}'></image>
         <view class='item-more message-sum' wx:if='{{newAnswer[idx] != 0 &&item.state == 1 && newAnswer[idx] != undefault}}'>
@@ -49,17 +49,17 @@
         <image class='item-more' mode="aspectFit" src='../../images/icon/icon_mission_finish.jpg' wx:if='{{item.state == 0}}'></image>
       </view>
       <view class='feed-content'>
-        <navigator url="../answer/answer?question_id={{item.questionID}}">
+        <navigator url="../answer/answer?question_id={{item._id}}">
           <view class='question' qid="{{questionID}}">
             <a class='quesiton-link'>
               <text>{{item.description}}</text>
             </a>
           </view>
           <view class='answer-body'>
-            <text class='answer-txt' aid="{{questionID}}">任务地点:{{item.adress}}</text>
+            <text class='answer-txt' aid="{{questionId}}">任务地点:{{item.address}}</text>
             <view class='answer-actions'>
               <view class="like dot">
-                <a> 问题:{{item.questionGold}}赏金 </a>
+                <a> 问题:10赏金 </a>
               </view>
               <view class="comments dot">
                 <a>{{item.answerSum}} 评论 </a>

@@ -50,17 +50,17 @@ Page({
             success: function (res) {
                 if (res.confirm) {
                     that.setData({
-                      info: {
-                        title: e.detail.value.title,
-                        description: e.detail.value.description,
-                        address: that.data.location.address,
-                        latitude: that.data.location.latitude,
-                        longitude: that.data.location.longitude,
-                        gold: that.data.goldsNumber,
-                      },
+                        info: {
+                            title: e.detail.value.title,
+                            description: e.detail.value.description,
+                            address: that.data.location.address,
+                            latitude: that.data.location.latitude,
+                            longitude: that.data.location.longitude,
+                            gold: that.data.goldsNumber,
+                        },
                     });
-                  util.getCityByLL(that.data.location.latitude,
-                      that.data.location.longitude, that.updateTaskInfo)
+                    util.getCityByLL(that.data.location.latitude,
+                        that.data.location.longitude, that.updateTaskInfo)
                 }
             }
         })
@@ -69,6 +69,7 @@ Page({
     updateTaskInfo: function (city) {
         let that = this;
         let info = that.data.info;
+        let temp = wx.getStorageSync(SESSION_KEY);
 
         wx.cloud.callFunction({
             name: 'task',
@@ -80,10 +81,10 @@ Page({
                 longitude: info.longitude,
                 gold: info.goldsNumber,
                 city: city,
+                userInfo: temp.userInfo,
             },
 
             success: function (res) {
-              console.log(res);
                 // if (res.data.code !== '0') {
                 //     console.log("任务post失败");
                 //     util.showModel('error', '发布失败');
@@ -104,7 +105,7 @@ Page({
                         }, 2000)
                     }
                 });
-                wx.setStorageSync('gold', res.data.data.msg[0].gold)
+                // wx.setStorageSync('gold', res.data.data.msg[0].gold)
             },
             fail: function (res) {
                 console.log("任务post失败");
