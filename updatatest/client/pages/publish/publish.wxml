@@ -59,15 +59,14 @@
                         <view class='pointtextarea-left flex-item' bindtap='chooseLocation'>
                             <textarea disabled='false' wx:if="{{hasLocation != true}}" style='color: #808080'>点击按钮选择地点
                             </textarea>
-                            <textarea disabled='false' wx:if="{{hasLocation == true}}" style='color: #000'
-                                      value="{{address}}">{{location.address}}
+                            <textarea disabled='false' wx:if="{{hasLocation == true}}" style='color: #000'>{{locat.address}}
                             </textarea>
                         </view>
                     </view>
                 </view>
-<!--                <view class='openMap'>-->
-<!--                    <button bindtap='chooseLocation' size='mini' class='openMap_btn'>点我选择地点</button>-->
-<!--                </view>-->
+                <view class='openMap'>
+                    <button bindtap='chooseLocation' size='mini' class='openMap_btn'>点我选择地点</button>
+                </view>
             </view>
         </form>
 

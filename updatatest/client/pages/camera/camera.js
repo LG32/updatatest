@@ -53,8 +53,13 @@ Page({
           btn_state: true,
         })
       } else {
+        let timestamp = new Date().getTime();
+        console.log('timestamp', timestamp);
+        timestamp = timestamp.toString();
+        console.log('timestamp', timestamp);
+
         wx.cloud.uploadFile({
-          cloudPath: 'img', // 上传至云端的路径
+          cloudPath: timestamp, // 上传至云端的路径
           filePath: that.data.pic_list, // 小程序临时文件路径
           success: res => {
             // 返回文件 ID
@@ -145,7 +150,7 @@ Page({
       sizeType: ['compressed'],
       sourceType: [type],
       success: function (res) {
-        console.log(res);
+        console.log('chooseWxImage', res);
         that.setData({
           tempFilePaths: res.tempFilePaths[0],
         })

@@ -9,7 +9,7 @@ Page({
         skey: '',
         publish: {},
         hasLocation: 'false',
-        location: {},
+        locat: {},
         address: '',
         goldsNumber: 10,
         goldsNumMin: 5,
@@ -37,7 +37,7 @@ Page({
         let that = this;
         console.log('start formSubmit', e);
 
-        if (that.data.location.address === undefined
+        if (that.data.locat.address === undefined
             || e.detail.value.title === ''
             || e.detail.value.description === '') {
             util.showModel('提示', '请完善信息');
@@ -53,14 +53,14 @@ Page({
                         info: {
                             title: e.detail.value.title,
                             description: e.detail.value.description,
-                            address: that.data.location.address,
-                            latitude: that.data.location.latitude,
-                            longitude: that.data.location.longitude,
+                            address: that.data.locat.address,
+                            latitude: that.data.locat.latitude,
+                            longitude: that.data.locat.longitude,
                             gold: that.data.goldsNumber,
                         },
                     });
-                    util.getCityByLL(that.data.location.latitude,
-                        that.data.location.longitude, that.updateTaskInfo)
+                    util.getCityByLL(that.data.locat.latitude,
+                        that.data.locat.longitude, that.updateTaskInfo)
                 }
             }
         })
@@ -121,11 +121,12 @@ Page({
         let that = this;
         wx.chooseLocation({
             success: function (res) {
-                console.log(res);
+                console.log('chooseLocation', res.address + res.name);
+                let address = res.address + res.name;
                 that.setData({
                     hasLocation: true,
-                    location: {
-                        address: res.address + res.name,
+                    locat: {
+                        address: address,
                         longitude: res.longitude,
                         latitude: res.latitude
                     }

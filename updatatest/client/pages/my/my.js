@@ -92,7 +92,7 @@ Page({
       data: {},
       success: function(res) {
         console.log('getFinishedMission success...', res.result.data);
-        wx.setStorageSync('finishedMission', res.result.data)
+        wx.setStorageSync('finishedMission', res.result.data[0])
       },
       fail: function(res) {
         console.log('getFinishedMission fail...');
